@@ -7,9 +7,11 @@ app.use((req, res) => {
    res.json({ message: 'Votre requête a bien été reçue !' }); 
 });
 
+//dotenv
+require('dotenv').config()
+
 //importation sequelize
 const { Sequelize } = require("sequelize")
-
 
 //importation de sql
 const mysql2 = require("mysql2")
@@ -18,11 +20,12 @@ const mysql2 = require("mysql2")
 
 
 // MYSQL
+/*
 const connectionToMySql = mysql2.createConnection({
-    host: "localhost",
-    user: "groupomania_admin",
-    password: "yxAi9mSgAD4O",
-    database: "groupomania",
+    host: process.env.DB_HOST,
+    user: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
   })
   
   function connectionToMySqlDatabase() {
@@ -34,18 +37,19 @@ const connectionToMySql = mysql2.createConnection({
       console.log("Connecté à la bdd mysql")
     })
   }
+
   
   connectionToMySqlDatabase()
-  
+  */
   //SEQUELIZE connection BDD
 
   //SEQUELIZE
 const sequelize = new Sequelize(
-    "groupomania",
-    "groupomania_admin",
-    "yxAi9mSgAD4O",
+    process.env.DB_NAME,
+    process.env.DB_USERNAME,
+    process.env.DB_PASSWORD,
     {
-      host: "localhost",
+      host: process.env.DB_HOST,
       dialect: "mysql",
     }
   )
@@ -60,9 +64,6 @@ const sequelize = new Sequelize(
   }
   
   connectionToSequelizeDb()
-
-
-
 
 
 module.exports = app;
