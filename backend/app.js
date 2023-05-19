@@ -1,3 +1,4 @@
+//création app express
 const express = require('express');
 
 const app = express();
@@ -5,6 +6,9 @@ const app = express();
 app.use((req, res) => {
    res.json({ message: 'Votre requête a bien été reçue !' }); 
 });
+
+//importation sequelize
+const { Sequelize } = require("sequelize")
 
 
 //importation de sql
@@ -33,7 +37,29 @@ const connectionToMySql = mysql2.createConnection({
   
   connectionToMySqlDatabase()
   
+  //SEQUELIZE connection BDD
+
+  //SEQUELIZE
+const sequelize = new Sequelize(
+    "groupomania",
+    "groupomania_admin",
+    "yxAi9mSgAD4O",
+    {
+      host: "localhost",
+      dialect: "mysql",
+    }
+  )
   
+  async function connectionToSequelizeDb() {
+    try {
+      await sequelize.authenticate()
+      console.log("Connecté à la bdd Sequelize")
+    } catch (error) {
+      console.error("Non connecté à la bdd Sequelize", error)
+    }
+  }
+  
+  connectionToSequelizeDb()
 
 
 
