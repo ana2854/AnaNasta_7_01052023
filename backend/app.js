@@ -10,8 +10,43 @@ app.use((req, res) => {
 //dotenv
 require("dotenv").config()
 
+
+/*
+//importation de sql
+const mysql = require('mysql2')
+
+
+const connectionToMySql = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+  })
+  
+  function connectionToMySqlDatabase() {
+    connectionToMySql.connect((err) => {
+      if (err) {
+        console.error("Non connecté à la bdd mysql: ", err)
+        return
+      }
+      console.log("Connecté à la bdd mysql")
+    })
+  }
+
+  
+  connectionToMySqlDatabase()
+  */
+  //SEQUELIZE connection BDD
+
+
+
+
+
+
 //importation sequelize
 const { Sequelize } = require("sequelize")
+
+
 
 //SEQUELIZE
 const sequelize = new Sequelize(
@@ -35,4 +70,18 @@ async function connectionToSequelizeDb() {
 
 connectionToSequelizeDb()
 
+
+// CORS
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*")
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
+  )
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+  )
+  next()
+})
 module.exports = app
