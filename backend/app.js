@@ -3,13 +3,17 @@ const express = require("express")
 
 const app = express()
 
+//importation package helmet
+const helmet = require("helmet")
+
 app.use((req, res) => {
   res.json({ message: "Votre requête a bien été reçue !" })
 })
 
+const userRoutes = require("./routes/user")
+
 //dotenv
 require("dotenv").config()
-
 
 /*
 //importation de sql
@@ -36,17 +40,10 @@ const connectionToMySql = mysql.createConnection({
   
   connectionToMySqlDatabase()
   */
-  //SEQUELIZE connection BDD
-
-
-
-
-
+//SEQUELIZE connection BDD
 
 //importation sequelize
 const { Sequelize } = require("sequelize")
-
-
 
 //SEQUELIZE
 const sequelize = new Sequelize(
@@ -70,7 +67,6 @@ async function connectionToSequelizeDb() {
 
 connectionToSequelizeDb()
 
-
 // CORS
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*")
@@ -84,4 +80,8 @@ app.use((req, res, next) => {
   )
   next()
 })
+
+app.use("api/auth/",userRoutes)
+
+app.use(helmet())
 module.exports = app
