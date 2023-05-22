@@ -3,17 +3,37 @@ const express = require("express")
 
 const app = express()
 
-//importation package helmet
-const helmet = require("helmet")
-
 app.use((req, res) => {
   res.json({ message: "Votre requête a bien été reçue !" })
 })
 
+const db = require("./config/database")
+
 const userRoutes = require("./routes/user")
+
+const postRoutes = require("./routes/post")
 
 //dotenv
 require("dotenv").config()
+
+//importation package helmet
+const helmet = require("helmet")
+
+//TEST DB SEQUELIZE
+async function connectionToSequelizeDb() {
+  try {
+    await db.authenticate()
+    console.log("Connecté à la bdd Sequelize")
+  } catch (error) {
+    console.error("Non connecté à la bdd Sequelize", error)
+  }
+}
+
+connectionToSequelizeDb()
+
+
+
+
 
 /*
 //importation de sql
@@ -40,32 +60,6 @@ const connectionToMySql = mysql.createConnection({
   
   connectionToMySqlDatabase()
   */
-//SEQUELIZE connection BDD
-
-//importation sequelize
-const { Sequelize } = require("sequelize")
-
-//SEQUELIZE
-const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USERNAME,
-  process.env.DB_PASSWORD,
-  {
-    host: process.env.DB_HOST,
-    dialect: "mysql",
-  }
-)
-
-async function connectionToSequelizeDb() {
-  try {
-    await sequelize.authenticate()
-    console.log("Connecté à la bdd Sequelize")
-  } catch (error) {
-    console.error("Non connecté à la bdd Sequelize", error)
-  }
-}
-
-connectionToSequelizeDb()
 
 // CORS
 app.use((req, res, next) => {
@@ -81,7 +75,15 @@ app.use((req, res, next) => {
   next()
 })
 
-app.use("api/auth/",userRoutes)
+//gestion des datas entrantes (parsed)
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
+
+//chemin vers routes du user
+app.use("api/auth/", userRoutes)
+
+//chemin vers routes des posts
+app.use("api/post", postRoutes)
 
 app.use(helmet())
 module.exports = app

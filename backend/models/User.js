@@ -1,17 +1,8 @@
 const { Sequelize, DataTypes } = require("sequelize")
+const db = require("../config/database")
+const Post = require("./Post")
 
-
-const sequelize = new Sequelize(
-    process.env.DB_NAME,
-    process.env.DB_USERNAME,
-    process.env.DB_PASSWORD,
-    {
-      host: process.env.DB_HOST,
-      dialect: "mysql",
-    }
-  )
-
-const User = sequelize.define(
+const User = db.define(
   "User",
   {
     userId: {
@@ -32,10 +23,26 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       unique: true,
       allowNull: false,
+      validate: {
+        isPasswordValid(value) {
+          if (
+            !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{4,10}$/.test(
+              value
+            )
+          ) {
+            throw new Error(
+              'Le mot de passe doit contenir au moins une lettre minuscule, une lette majuscule, un chiffre et un caractère spéciale et faire 10 caractères maximum"'
+            )
+          }
+        },
+      },
     },
     userDefaultImageUrl: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        isUrl: true,
+      },
     },
     dateJoined: {
       type: DataTypes.DATE,
@@ -53,7 +60,21 @@ const User = sequelize.define(
 )
 
 // `sequelize.define` also returns the model
-console.log(User === sequelize.models.User) // true
+console.log(User === db.models.User) // true
+
+/*
+// Associations
+User.hasMany(Post, { foreignKey: "userId" })
+*/
+//synchronisation tables
+db.sync()
+  .then(() => {
+    console.log("synchro ok")
+  })
+  .catch((error) => {
+    // Error occurred during database synchronization
+    console.error("erreur synchronisation ", error)
+  })
 
 //exportation du modèle
 module.exports = User
