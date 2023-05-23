@@ -19,6 +19,9 @@ require("dotenv").config()
 //importation package helmet
 const helmet = require("helmet")
 
+//importation de path pour accéder au chemin de notre système de fichier
+const path = require("path");
+
 //TEST DB SEQUELIZE
 async function connectionToSequelizeDb() {
   try {
@@ -84,6 +87,10 @@ app.use("api/auth/", userRoutes)
 
 //chemin vers routes des posts
 app.use("api/post", postRoutes)
+
+//transfert image
+app.use("/images", express.static(path.join(__dirname, "images")))
+
 
 app.use(helmet())
 module.exports = app

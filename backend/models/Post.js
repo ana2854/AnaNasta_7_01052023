@@ -71,11 +71,11 @@ Post.belongsTo(User, {
 //synchronisation tables
 db.sync()
   .then(() => {
-    console.log("synchro ok");
+    console.log("Synchronisation modèle&table POST OK !");
   })
   .catch((error) => {
     // Error occurred during database synchronization
-    console.error("erreur synchronisation ", error);
+    console.error("Erreur synchronisation modèle&table POST ! ", error);
   });
 
 

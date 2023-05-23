@@ -69,11 +69,11 @@ User.hasMany(Post, { foreignKey: "userId" })
 //synchronisation tables
 db.sync()
   .then(() => {
-    console.log("synchro ok")
+    console.log("synchronisation modèle&table USER OK !")
   })
   .catch((error) => {
     // Error occurred during database synchronization
-    console.error("erreur synchronisation ", error)
+    console.error("Erreur synchronisation modèle&table USER ! ", error)
   })
 
 //exportation du modèle
