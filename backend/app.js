@@ -34,6 +34,8 @@ async function connectionToSequelizeDb() {
 
 connectionToSequelizeDb()
 
+//importation associations des modèles
+require('./models/associations');
 
 
 

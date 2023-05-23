@@ -1,6 +1,6 @@
 const { Sequelize, DataTypes } = require("sequelize")
 const db = require("../config/database")
-const Post = require("./Post")
+
 
 const User = db.define(
   "User",
@@ -62,10 +62,7 @@ const User = db.define(
 // `sequelize.define` also returns the model
 console.log(User === db.models.User) // true
 
-/*
-// Associations
-User.hasMany(Post, { foreignKey: "userId" })
-*/
+
 //synchronisation tables
 db.sync()
   .then(() => {

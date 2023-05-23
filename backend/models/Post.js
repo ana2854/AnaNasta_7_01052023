@@ -1,6 +1,6 @@
 const { Sequelize, DataTypes } = require("sequelize")
 const db = require("../config/database")
-const User = require('./User')
+
 
 const Post = db.define(
   "Post",
@@ -62,12 +62,7 @@ const Post = db.define(
 // `sequelize.define` also returns the model
 console.log(Post === db.models.Post) // true
 
-/*
-//réf à la clé étrangère de la table post (clé principale de la table user)
-Post.belongsTo(User, {
-  foreignKey: "user_id",
-})
-*/
+
 //synchronisation tables
 db.sync()
   .then(() => {
