@@ -39,7 +39,7 @@ const User = db.define(
     },
     userDefaultImageUrl: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       validate: {
         isUrl: true,
       },
@@ -49,9 +49,10 @@ const User = db.define(
       allowNull: false,
       defaultValue: Sequelize.NOW,
     },
-    admin: {
-      type: DataTypes.BOOLEAN,
+    role: {
+      type: DataTypes.STRING,
       allowNull: false,
+      defaultValue: 'user',
     },
   },
   {
@@ -64,7 +65,7 @@ console.log(User === db.models.User) // true
 
 
 //synchronisation tables
-db.sync()
+db.sync({force:true})
   .then(() => {
     console.log("synchronisation modèle&table USER OK !")
   })

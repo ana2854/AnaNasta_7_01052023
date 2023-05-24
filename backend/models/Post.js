@@ -16,7 +16,7 @@ const Post = db.define(
       allowNull: false,
       references: {
         model: "User",
-        foreignKey: "user_id",
+        foreignKey: "userId",
       },
     },
     post: {
@@ -64,7 +64,7 @@ console.log(Post === db.models.Post) // true
 
 
 //synchronisation tables
-db.sync()
+db.sync({force:true})
   .then(() => {
     console.log("Synchronisation modèle&table POST OK !");
   })
