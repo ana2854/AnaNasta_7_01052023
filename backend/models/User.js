@@ -1,7 +1,6 @@
 const { Sequelize, DataTypes } = require("sequelize")
 const db = require("../config/database")
 
-
 const User = db.define(
   "User",
   {
@@ -52,10 +51,11 @@ const User = db.define(
     role: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 'user',
+      defaultValue: "user",
     },
   },
   {
+    tableName :"user",
     freezeTableName: true,
   }
 )
@@ -63,10 +63,13 @@ const User = db.define(
 // `sequelize.define` also returns the model
 console.log(User === db.models.User) // true
 
-
-//synchronisation tables
+//synchronisation tables{ force: true }
+//modif table {alter:true}
+//creation user :  const user = User.build(({email: 'hello@gmail.com', password: "Azerty1*"}))console.log(User.email);
+    
 db.sync({force:true})
   .then(() => {
+   
     console.log("synchronisation modèle&table USER OK !")
   })
   .catch((error) => {
