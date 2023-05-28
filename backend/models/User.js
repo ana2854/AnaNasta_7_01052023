@@ -2,7 +2,7 @@ const { Sequelize, DataTypes } = require("sequelize")
 const db = require("../config/database")
 
 const User = db.define(
-  "User",
+  "user",
   {
     userId: {
       type: DataTypes.INTEGER,
@@ -51,22 +51,74 @@ const User = db.define(
     role: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: "user",
+      defaultValue: "appUser",
     },
   },
   {
     tableName :"user",
+    modelName: "User",
+    underscored:false,
     freezeTableName: true,
   }
 )
 
 // `sequelize.define` also returns the model
-console.log(User === db.models.User) // true
+console.log(db.models.User) // true
 
-//synchronisation tables{ force: true }
-//modif table {alter:true}
-//creation user :  const user = User.build(({email: 'hello@gmail.com', password: "Azerty1*"}))console.log(User.email);
+
+/*
+// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
+// verif tables presents ou pas
+async function checkTables() {
+  try {
+    await db.authenticate();
+    console.log('connexion réussie.');
+
+    const tableNames = ['post']; // Update with your table names
+
+    const tablePromises = tableNames.map(async (tableName) => {
+      const tableExists = await db.getQueryInterface().showAllTables();
+      if (tableExists.includes(tableName.toLowerCase())) {
+        console.log(`Table '${tableName}' existe.`);
+      } else {
+        console.log(`Table '${tableName}' n'existe pas.`);
+      }
+    });
+
+    await Promise.all(tablePromises);
+  } catch (error) {
+    console.error('impossible de se connecter à la db:', error);
+  } finally {
+    await db.close();
+    console.log('Connection closed.');
+  }
+}
+
+// Call the function to check tables
+checkTables();
+
+
+//xxxxxxxxxxxxxxxxxxxxxxxxxx
+*/
+
+
+//creation user :  
+db.sync({ alter: true })
+  .then(() => {
+   const newUser = User.build({email: 'hello1@gmail.com'})
+   console.log(newUser);
     
+  })
+  .catch((error) => {
+    // Erreur
+    console.error("Erreur création user! ", error)
+  })
+
+
+  /*
+  //synchronisation des tables
 db.sync({force:true})
   .then(() => {
    
@@ -76,6 +128,7 @@ db.sync({force:true})
     // Error occurred during database synchronization
     console.error("Erreur synchronisation modèle&table USER ! ", error)
   })
+  */
 
 //exportation du modèle
 module.exports = User

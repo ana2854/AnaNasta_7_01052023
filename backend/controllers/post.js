@@ -119,7 +119,7 @@ exports.evaluatePost = (req, res, next) => {
       .then((post) => res.status(200).json({ message: "Dislike" }))
       .catch((error) => res.status(400).json({ error }));
   } else {
-    // si l'utilisateur enleve son vote
+    // si l'utilisateur enleve son like
     Post.findOne({ _id: req.params.id })
       .then((post) => {
         if (post.usersLiked.includes(req.body.userId)) {

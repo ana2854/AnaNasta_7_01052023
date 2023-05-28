@@ -2,7 +2,7 @@ const { Sequelize, DataTypes } = require("sequelize")
 const db = require("../config/database")
 
 const Post = db.define(
-  "Post",
+  "post",
   {
     postId: {
       type: DataTypes.INTEGER,
@@ -55,13 +55,15 @@ const Post = db.define(
   },
   {
     tableName : "post",
+    modelName : "Post",
+    underscored:false,
     freezeTableName: true,
   }
 )
 
 // `sequelize.define` also returns the model
-console.log(Post === db.models.Post) // true
-
+console.log(db.models.Post) // true
+/*
 //synchronisation tables
 db.sync({ force: true })
   .then(() => {
@@ -71,6 +73,6 @@ db.sync({ force: true })
     // Error occurred during database synchronization
     console.error("Erreur synchronisation modèle&table POST ! ", error)
   })
-
+*/
 //exportation du modèle
 module.exports = Post
