@@ -3,15 +3,17 @@
 function App() {
   return (
     <div>
-    <h1>Login</h1>
+    <h1>Se connecter</h1>
   <form>
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required/>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required placeholder="email"/>
     <br/>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required/>
+    <label for="password">Mot de passe :</label>
+    <input type="password" id="password" name="password" required placeholder="Mot de passe"/>
     <br/>
-    <button type="submit">Login</button>
+    <button type="submit">Se connecter</button>
+    <p>Vous n'avez pas encore de compte ? </p>
+    <button type="submit">Créer un compte</button>
   </form>
     </div>
   )
