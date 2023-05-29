@@ -1,14 +1,14 @@
 export function Login() {
   return (
     <form>
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required placeholder="email" aria-required="true"
+      <label htmlFor="email">Email:</label>
+      <input type="email" id="email" className="email" required placeholder="email" aria-required="true" autoFocus
       />
       <p>Veuillez saisir une adresse email valide</p>
       <br />
-      <label for="password">Mot de passe :</label>
+      <label htmlFor="password">Mot de passe :</label>
       <input
-        type="password" id="password" name="password"
+        type="password" id="password" className="password"
         required placeholder="Mot de passe" aria-required="true"
         minlength={4} maxLength={50}
       />
@@ -19,7 +19,7 @@ export function Login() {
       <br />
       <button type="submit">Se connecter</button>
       <p>Vous n'avez pas encore de compte ? </p>
-      <button type="submit">Créer un compte</button>
+      <a href="">Créer un compte</a>
     </form>
   )
 }
