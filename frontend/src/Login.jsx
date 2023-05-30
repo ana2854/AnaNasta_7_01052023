@@ -1,6 +1,9 @@
+import logo from '../src/image/groupomania-logo.svg'
+
 export function Login() {
   return (
     <form>
+      <img style={{width: "70%"}} src={logo}></img>
       <h1>Se connecter</h1>
       <div className="form-container">
         <label htmlFor="email">Email:</label>
