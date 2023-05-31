@@ -1,12 +1,14 @@
-import logo from '../src/image/groupomania-logo.svg'
+import React from 'react'
+import logo from '../src/image/groupomania-logoBW.svg'
+import './styles.css'
 
 export function Login() {
   return (
     <form>
-      <img style={{width: "70%"}} src={logo}></img>
-      <h1>Se connecter</h1>
+      <img src={logo} className="logo-groupomania" ></img>
+      
       <div className="form-container">
-        <label htmlFor="email">Email:</label>
+        <label htmlFor="email">Email</label>
         <input
           type="email"
           id="email"
@@ -18,7 +20,7 @@ export function Login() {
         />
         <p className="error-email">Veuillez saisir une adresse email valide</p>
 
-        <label htmlFor="password">Mot de passe :</label>
+        <label htmlFor="password">Mot de passe</label>
         <input
           type="password"
           id="password"
