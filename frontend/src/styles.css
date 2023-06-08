@@ -5,12 +5,12 @@ body {
   justify-content: center;
 }
 
-h1,
-p {
-  padding: 10px;
+.label {
+  font-weight: bold;
 }
 
-form {
+
+.form {
   padding: 10%;
   background-color: white;
   border-color: beige solid 10px;
@@ -39,7 +39,13 @@ input[type="password"] {
   border-radius: 10px;
 }
 
-button {
+.form-container.error .error-message {
+  font-size: 10px;
+  color: red;
+}
+
+
+.btn {
   background-color: #4286f4;
   color: white;
   padding: 14px 14px;
@@ -50,13 +56,14 @@ button {
   width: 60%;
 }
 
+.btn:focus {
+  outline: auto;
+}
+
 .logo-groupomania {
   width: 80%;
   height: 50px;
   margin: 3%;
 }
 
-.error-password,
-.error-email {
-  display: none;
-}
+
