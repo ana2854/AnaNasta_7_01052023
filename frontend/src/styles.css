@@ -81,3 +81,7 @@ span {
   display: block;
   margin: 1em;
 }
+
+a {
+  text-decoration: none;
+}

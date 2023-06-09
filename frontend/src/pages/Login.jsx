@@ -2,7 +2,7 @@ import React from "react"
 import { useState } from "react"
 import logo from "../src/image/groupomania-logoBW.svg"
 import "./styles.css"
-import { checkEmail, checkPassword } from "./validation"
+import { checkEmail, checkPassword } from "../validation"
 
 export function Login() {
   //variables email&password qui vont changer d'état
