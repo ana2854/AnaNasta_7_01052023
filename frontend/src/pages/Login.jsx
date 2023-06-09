@@ -1,7 +1,7 @@
-import React from "react"
+
 import { useState } from "react"
-import logo from "../src/image/groupomania-logoBW.svg"
-import "./styles.css"
+import logo from "../image/groupomania-logoBW.svg"
+import "../styles.css"
 import { checkEmail, checkPassword } from "../validation"
 
 export function Login() {
