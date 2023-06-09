@@ -5,8 +5,8 @@ export function checkEmail(email) {
     errors.push("Champs obligatoire")
   }
 
-  if (!email.endsWith("@a.com")) {
-    errors.push("Le mail doit terminer par @a.com")
+  if (!email.endsWith("@groupomania.com")) {
+    errors.push("Entrez un email se terminant par @groupomania.com")
   }
 
   return errors
@@ -15,8 +15,8 @@ export function checkEmail(email) {
 export function checkPassword(password) {
   const errors = []
 
-  if (password.length < 4) {
-    errors.push("Veuillez saisir au moins 4 caractères")
+  if (password.length < 5) {
+    errors.push("Veuillez saisir au moins 5 caractères")
   }
 
   if (!password.match(/[a-z]/)) {

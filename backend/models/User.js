@@ -24,13 +24,10 @@ const User = db.define(
       allowNull: false,
       validate: {
         isPasswordValid(value) {
-          if (
-            !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{4,50}$/.test(
-              value
-            )
-          ) {
+          if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{5,50}$/.test(value))
+          {
             throw new Error(
-              'Le mot de passe doit contenir au moins une lettre minuscule, une lette majuscule, un chiffre et un caractère spéciale et faire 50 caractères maximum'
+              'Le mot de passe doit contenir au moins une lettre minuscule, une lette majuscule, un chiffre et faire entre 5 et 50 caractères'
             )
           }
         },

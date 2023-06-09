@@ -40,7 +40,7 @@ export function Login() {
           id="email"
           className="input"
           //required
-          placeholder="Votre email"
+          placeholder="ex: user@groupomania.com"
           aria-required="true"
           autoFocus
           value={email}
@@ -78,11 +78,13 @@ export function Login() {
       </div>
 
       <button className="btn" type="submit">
-        Connexion
+        S'identifier
       </button>
 
-      <p>Vous n'avez pas encore de compte ? </p>
-      <a href="">Créer un compte !</a>
+      
+      
+      <span><a href="">Créer mon compte </a></span>
+
     </form>
   )
 }
