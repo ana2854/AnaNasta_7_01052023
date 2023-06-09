@@ -20,7 +20,7 @@ body {
 }
 
 .form-container {
-  padding: 10%;
+  
   display: flex;
   text-align: left;
   flex-direction: column;
@@ -38,6 +38,8 @@ input[type="password"] {
   box-sizing: border-box;
   border-radius: 10px;
 }
+
+
 
 .form-container.error .error-message {
   font-size: 10px;
@@ -63,7 +65,7 @@ input[type="password"] {
 .logo-groupomania {
   width: 80%;
   height: 50px;
-  margin: 3%;
+  margin: 5%;
 }
 
 
