@@ -1,8 +1,8 @@
-
 import { useState } from "react"
 import logo from "../image/groupomania-logoBW.svg"
 import "../styles.css"
 import { checkEmail, checkPassword } from "../validation"
+import { Link } from "react-router-dom"
 
 export function Login() {
   //variables email&password qui vont changer d'état
@@ -66,8 +66,7 @@ export function Login() {
           required
           placeholder="Mot de passe"
           aria-required="true"
-          //minLength={4}
-          //maxLength={50}
+          maxLength={50}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
@@ -81,10 +80,9 @@ export function Login() {
         S'identifier
       </button>
 
-      
-      
-      <span><a href="">Créer mon compte </a></span>
-
+      <span>
+        <Link to="/register">Créer mon compte </Link>
+      </span>
     </form>
   )
 }

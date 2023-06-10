@@ -1,3 +1,3 @@
 export function AccountUser() {
-    return <h1>Personal account </h1>
+    return <h1>Mon compte </h1>
 }

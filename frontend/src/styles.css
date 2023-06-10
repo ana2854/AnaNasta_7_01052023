@@ -17,6 +17,7 @@ body {
   font-size: medium;
   border-radius: 15px;
   box-sizing: border-box;
+  background: linear-gradient();
   
  width: 350px;
   
@@ -45,6 +46,8 @@ input[type="password"] {
 
 .form-container.error input {
   background-color: hsl(0, 100%, 90%);
+  border: 1px solid red;
+  outline: 1px solid red;
 }
 
 .form-container.error .error-message {
