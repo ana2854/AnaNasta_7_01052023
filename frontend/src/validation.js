@@ -15,6 +15,11 @@ export function checkEmail(email) {
 export function checkPassword(password) {
   const errors = []
 
+  if (password.length === 0) {
+    errors.push("Champs obligatoire")
+  }
+
+
   if (password.length < 5) {
     errors.push("Veuillez saisir au moins 5 caractères")
   }

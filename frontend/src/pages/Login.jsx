@@ -33,13 +33,13 @@ export function Login() {
         className={`form-container ${emailErrors.length > 0 ? "error" : ""}`}
       >
         <label className="label" htmlFor="email">
-          Email
+          Email*
         </label>
         <input
           type="email"
           id="email"
           className="input"
-          //required
+          required
           placeholder="ex: user@groupomania.com"
           aria-required="true"
           autoFocus
@@ -57,7 +57,7 @@ export function Login() {
         className={`form-container ${passwordErrors.length > 0 ? "error" : ""}`}
       >
         <label className="label" htmlFor="password">
-          Mot de passe
+          Mot de passe*
         </label>
         <input
           type="password"

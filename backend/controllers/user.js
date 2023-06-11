@@ -12,12 +12,22 @@ const jwt = require("jsonwebtoken")
 //prend le mess crypt va crée un new user + mail
 //va enregistrer cet utilisateur dans la bdd
 exports.signup = (req, res, next) => {
+  console.log("route signup connexion ok"); 
+  User.count({ where: { role: "admin" } })
+  .then((count) => {
+    if (count >= 1) {
+      return res.status(400).json({ error: "impossible de créer un nouvel administrateur" });
+    }})
+
+
   bcrypt
     .hash(req.body.password, 10)
     .then((hash) => {
+      const role = req.body.role === "admin" ? "admin" : "basicUser";
       const user = new User({
         email: req.body.email,
         password: hash,
+        role : role,
       })
       user
         .save()

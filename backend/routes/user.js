@@ -8,7 +8,23 @@ const router = express.Router();
 const userCtrl = require('../controllers/user');
 
 //routes (method POST+ chemin, fonctions controllers)
-router.post('/signup', userCtrl.signup);
-router.post('/login', userCtrl.login);
+//router.post('/signup', userCtrl.signup);
+
+router.post('/signup', (req, res) => {
+    console.log('Signup route accessed');
+  
+    userCtrl.signup(req, res);
+  });
+  
+
+
+//router.post('/login', userCtrl.login);
+
+router.post('/login', (req, res) => {
+    console.log('Login route accessed'); 
+  
+    userCtrl.login(req, res);
+  });
+  
 
 module.exports = router;
