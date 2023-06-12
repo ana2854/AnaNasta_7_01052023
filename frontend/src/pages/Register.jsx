@@ -2,6 +2,8 @@ import { useState } from "react"
 import logo from "../image/groupomania-logoBW.svg"
 import "../styles.css"
 import { checkEmail, checkPassword } from "../validation"
+import axios from "axios";
+
 
 
 export function Register() {
@@ -21,6 +23,28 @@ export function Register() {
 
     setEmailErrors(emailResults)
     setPasswordErrors(passwordResults)
+
+    if (emailResults.length === 0 && passwordResults.length === 0) {
+      // Perform the registration request using Axios
+      axios.post("http://localhost:3000/api/auth/signup", {
+        email,
+        password,
+      })
+        .then(response => {
+          // Handle the registration success response
+          console.log("Création de compte réussie!", response.data);
+          
+        
+        })
+        .catch(error => {
+          // Handle the registration error
+          console.error("Echec création de compte", error);
+          // You can display an error message or perform any necessary error handling
+        });
+    }
+    
+
+
   }
 
   return (
@@ -86,4 +110,4 @@ export function Register() {
     </form>
     </main>
   )
-}
+        }

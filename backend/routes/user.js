@@ -11,7 +11,7 @@ const userCtrl = require('../controllers/user');
 //router.post('/signup', userCtrl.signup);
 
 router.post('/signup', (req, res) => {
-    console.log('Signup route accessed');
+    console.log('accès à la route Signup');
   
     userCtrl.signup(req, res);
   });
@@ -21,7 +21,7 @@ router.post('/signup', (req, res) => {
 //router.post('/login', userCtrl.login);
 
 router.post('/login', (req, res) => {
-    console.log('Login route accessed'); 
+    console.log('accès à la route Login'); 
   
     userCtrl.login(req, res);
   });

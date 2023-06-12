@@ -21,6 +21,10 @@ export function Login() {
 
     setEmailErrors(emailResults)
     setPasswordErrors(passwordResults)
+
+    
+
+
   }
 
   return (
