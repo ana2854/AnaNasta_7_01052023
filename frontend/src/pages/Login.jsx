@@ -43,8 +43,10 @@ export function Login() {
         )
         .then((res) => {
           console.log("Connection au compte!", res.data)
-
+          console.log(res.data);
           const { userId, token } = res.data
+          console.log(token)
+          console.log(userId)
 
           localStorage.setItem("userAuth", JSON.stringify({ userId, token }))
 
