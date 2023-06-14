@@ -15,7 +15,10 @@ export function Register() {
   const [emailErrors, setEmailErrors] = useState([])
   const [passwordErrors, setPasswordErrors] = useState([])
 
+ 
+
   //fonction onSubmit de react pour gérer l'envoi des datas
+
   function onSubmit(e) {
     e.preventDefault()
 
