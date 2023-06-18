@@ -6,6 +6,9 @@ const Post = require("../models/Post");
 //importation du package fs de node
 const fs = require("fs");
 
+
+//const permissions = require('./permissions');
+
 exports.createPost = (req, res, next) => {
   console.log(req.body.post);
   console.log("post crée")
@@ -49,6 +52,8 @@ exports.getOnePost = (req, res, next) => {
 
 exports.modifyPost = (req, res, next) => {
   Post.findOne({ id: req.params.id })
+//if (permissions.isAdmin(req) || permissions.isPostOwner(req)) 
+
     .then((post) => {
       const filename = post.imageUrl.split("/images/")[1]; 
       fs.unlink(`images/${filename}`, () => {
@@ -74,6 +79,7 @@ exports.modifyPost = (req, res, next) => {
 
 //route pour supprimer une post
 exports.deletePost = (req, res, next) => {
+  //if (permissions.isAdmin(req) || permissions.isPostOwner(req)) 
   Post.findOne({ id: req.params.id })
     .then((post) => {
       const filename = post.imageUrl.split("/images/")[1];
