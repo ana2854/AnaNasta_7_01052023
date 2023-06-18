@@ -48,8 +48,9 @@ export function Register() {
   }
 
   return (
+    <>
     <main>
-      <h1>Créer mon compte </h1>
+      <h1 className="title-form">Créer mon compte </h1>
       <form onSubmit={onSubmit} className="form">
         <img src={logo} className="logo-groupomania"></img>
 
@@ -109,5 +110,8 @@ export function Register() {
         </button>
       </form>
     </main>
+
+    </>
   )
 }
+

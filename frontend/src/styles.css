@@ -2,7 +2,16 @@ body {
   font-family: "Lato", sans-serif;
   background-color: whitesmoke;
   display: flex;
+  color :  #0a2351;
   justify-content: center;
+}
+
+.title-form {
+ font-size: 4vh;
+ text-align: center;
+ color: #0a2351;
+ background-color: white;
+ padding: 6px;
 }
 
 .label {
@@ -50,7 +59,7 @@ input[type="password"] {
   outline: 1px solid red;
 }
 
-.form-container.error .error-message {
+.form-container.error .error-message, .error-message {
   color: red;
   font-weight: bold;
   overflow-wrap: break-word;
@@ -60,9 +69,10 @@ input[type="password"] {
 .btn {
   background-color: #4286f4;
   color: white;
+  letter-spacing: 0.1em;
   padding: 14px 14px;
   margin: 15px 0;
-  font-weight: bold;
+ 
   border-radius: 10px;
   cursor: pointer;
   width: 60%;
@@ -87,4 +97,16 @@ span {
 
 a {
   text-decoration: none;
+}
+
+
+.header-nav {
+  header {
+    background-color: blue;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+}
 }

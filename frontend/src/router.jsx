@@ -1,12 +1,36 @@
 import { createBrowserRouter } from "react-router-dom"
-import { UserAccount } from "./pages/UserAccount"
-import { Login } from "./pages/Login"
-import { Register } from "./pages/Register"
-import { Home } from "./pages/Home"
+import { NavLayout } from "./Nav/NavLayout"
+
+import { Login } from './pages/Login';
+import { Register } from './pages/Register';
+import { PostList } from "./pages/PostList"
+import PrivateRoutes from "./utils/PrivateRoutes";
+//import { Post } from './pages/Post';
+// import { UserAccount } from './pages/UserAccount';
+// import { UserProfil } from './pages/UserProfil';
 
 export const router = createBrowserRouter([
-  { path: "/login", element: <Login /> },
-  { path: "/register", element: <Register /> },
-  { path: "/", element: <Home /> },
-  { path: "/userAccount/:userID", element: <UserAccount /> },
+  
+    {
+      path: "/",
+      children: [
+        {
+        
+          children: [
+            { path: "login", element: <Login /> },
+            { path: "register", element: <Register /> },
+           
+            {
+              path: "posts:userId",
+              element: <NavLayout />, 
+              children: [
+                { path: "posts:userId", element: <PrivateRoutes component={PostList} /> },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  
 ])
+

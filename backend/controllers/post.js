@@ -96,51 +96,51 @@ exports.getAllPosts = (req, res, next) => {
 };
 
 exports.evaluatePost = (req, res, next) => {
-  if (req.body.like === 1) {
+  if (req.body.likes === 1) {
     // si l'utilisateur aime la post //
-    Post.updateOne(
-      { _id: req.params.id },
+    Post.update(
+      { _id: req.params.postId },
       {
-        $inc: { likes: req.body.like++ },
-        $push: { usersLiked: req.body.userId },
+        $inc: { likes: req.body.likes++ },
+        $push: { usersLikes: req.body.userId },
       }
     ) // on ajoute 1 like et on le push l'array usersLiked //
       .then((post) => res.status(200).json({ message: "Like" }))
       .catch((error) => res.status(400).json({ error }));
-  } else if (req.body.like === -1) {
+  } else if (req.body.likes === -1) {
     // sinon si il aime pas la post //
-    Post.updateOne(
-      { _id: req.params.id },
+    Post.update(
+      { _id: req.params.postId },
       {
-        $inc: { dislikes: req.body.like++ * -1 },
-        $push: { usersDisliked: req.body.userId },
+        $inc: { dislikes: req.body.likes++ * -1 },
+        $push: { usersDislikes: req.body.userId },
       }
     ) // on ajoute 1 dislike et on le push l'array usersDisliked //
       .then((post) => res.status(200).json({ message: "Dislike" }))
       .catch((error) => res.status(400).json({ error }));
   } else {
     // si l'utilisateur enleve son like
-    Post.findOne({ _id: req.params.id })
+    Post.findOne({ _id: req.params.postId})
       .then((post) => {
-        if (post.usersLiked.includes(req.body.userId)) {
+        if (post.usersLikes.includes(req.body.userId)) {
           // si l'array userLiked contient le id de like //
-          Post.updateOne(
-            { _id: req.params.id },
-            { $pull: { usersLiked: req.body.userId }, $inc: { likes: -1 } }
+          Post.update(
+            { _id: req.params.postId },
+            { $pull: { usersLikes: req.body.userId }, $inc: { likes: -1 } }
           ) // $pull : ça vide l'array userLiked et ça enleve un like sinon le meme utilisateur pourrai ajouter plusieurs like//
             .then((post) => {
               res.status(200).json({ message: "Annulation du Like !" });
             })
             .catch((error) => res.status(400).json({ error }));
-        } else if (post.usersDisliked.includes(req.body.userId)) {
+        } else if (post.usersDislikes.includes(req.body.userId)) {
           //// si l'array userDisliked contient le id de like //
-          Post.updateOne(
-            { _id: req.params.id },
+          Post.update(
+            { _id: req.params.postId },
             {
-              $pull: { usersDisliked: req.body.userId },
+              $pull: { usersDislikes: req.body.userId },
               $inc: { dislikes: -1 },
             }
-          ) // $pull : ça vide l'array userDisliked et ça enleve un like sinon le meme utilisateur pourrai ajouter plusieurs like//
+          ) // $pull : vide l'array userDisliked et ça enleve un like sinon le meme utilisateur pourrai ajouter plusieurs like//
             .then((post) => {
               res.status(200).json({ message: "Annulation du Dislike !" });
             })
