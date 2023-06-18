@@ -15,10 +15,9 @@ export const router = createBrowserRouter([
 
   {
     path: "/",
-    element: <Navigate to="/login" replace={true} />, // Redirect to "/login" when the root URL is accessed
+    element: <Navigate to="/login" replace={true} />, 
   },
-
-
+  
   {
     path: "/login",
     element: <Login />,

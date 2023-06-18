@@ -53,10 +53,12 @@ exports.login = (req, res, next) => {
           }
           //true, renvoi une requête ok + renvoi objet json userId et token
           res.status(200).json({
-           // userId: user._id,
-           userId : user.userId,
+          
+           userId: user.userId,
+           role: user.role,
             token: jwt.sign({ userId: user.userId }, process.env.SECRETKEY, {
               expiresIn: "24h",
+             
             }),
           })
         })

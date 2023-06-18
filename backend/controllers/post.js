@@ -8,17 +8,21 @@ const fs = require("fs");
 
 exports.createPost = (req, res, next) => {
   console.log(req.body.post);
+  console.log("post crée")
+
   const postObject = JSON.parse(req.body.post);
-  delete postObject._id;
+  console.log(postObject);
+  delete postObject.id;
   const post = new Post({
     ...postObject,
     imageUrl: `${req.protocol}://${req.get("host")}/images/${
       req.file.filename
     }`,
+  
   });
   post
     .save()
-    .then(() => res.status(201).json({ message: "Post crée !" }))
+    .then(() => res.status(201).json({date: post.dateCreated, post: post.content, image : post.imageUrl }))
     .catch((error) => {
       console.log(error);
 
@@ -29,7 +33,7 @@ exports.createPost = (req, res, next) => {
 //route pour récupérer une post
 exports.getOnePost = (req, res, next) => {
   Post.findOne({
-    _id: req.params.id,
+    id: req.params.id,
   })
     .then((post) => {
       res.status(200).json(post);
@@ -44,7 +48,7 @@ exports.getOnePost = (req, res, next) => {
 //route pour modifier une post
 
 exports.modifyPost = (req, res, next) => {
-  Post.findOne({ _id: req.params.id })
+  Post.findOne({ id: req.params.id })
     .then((post) => {
       const filename = post.imageUrl.split("/images/")[1]; 
       fs.unlink(`images/${filename}`, () => {
@@ -56,11 +60,12 @@ exports.modifyPost = (req, res, next) => {
               }`,
             }
           : { ...req.body };
-        Post.updateOne(
-          { _id: req.params.id },
-          { ...postObject, _id: req.params.id }
+        Post.update(
+          { id: req.params.id },
+          { ...postObject, id: req.params.id }
         )
           .then(() => res.status(200).json({ message: "Post modifiée !" }))
+          
           .catch((error) => res.status(400).json({ error }));
       });
     })
@@ -69,12 +74,12 @@ exports.modifyPost = (req, res, next) => {
 
 //route pour supprimer une post
 exports.deletePost = (req, res, next) => {
-  Post.findOne({ _id: req.params.id })
+  Post.findOne({ id: req.params.id })
     .then((post) => {
       const filename = post.imageUrl.split("/images/")[1];
       //fonction callback - agit qd action précédente terminée
       fs.unlink(`images/${filename}`, () => {
-        Post.deleteOne({ _id: req.params.id })
+        Post.deleteOne({ id: req.params.id })
           .then(() => res.status(200).json({ message: "Post supprimé !" }))
           .catch((error) => res.status(400).json({ error }));
       });
@@ -99,7 +104,7 @@ exports.evaluatePost = (req, res, next) => {
   if (req.body.likes === 1) {
     // si l'utilisateur aime la post //
     Post.update(
-      { _id: req.params.postId },
+      { id: req.params.postId },
       {
         $inc: { likes: req.body.likes++ },
         $push: { usersLikes: req.body.userId },
@@ -110,7 +115,7 @@ exports.evaluatePost = (req, res, next) => {
   } else if (req.body.likes === -1) {
     // sinon si il aime pas la post //
     Post.update(
-      { _id: req.params.postId },
+      { id: req.params.postId },
       {
         $inc: { dislikes: req.body.likes++ * -1 },
         $push: { usersDislikes: req.body.userId },
@@ -120,12 +125,12 @@ exports.evaluatePost = (req, res, next) => {
       .catch((error) => res.status(400).json({ error }));
   } else {
     // si l'utilisateur enleve son like
-    Post.findOne({ _id: req.params.postId})
+    Post.findOne({ id: req.params.postId})
       .then((post) => {
         if (post.usersLikes.includes(req.body.userId)) {
           // si l'array userLiked contient le id de like //
           Post.update(
-            { _id: req.params.postId },
+            { id: req.params.postId },
             { $pull: { usersLikes: req.body.userId }, $inc: { likes: -1 } }
           ) // $pull : ça vide l'array userLiked et ça enleve un like sinon le meme utilisateur pourrai ajouter plusieurs like//
             .then((post) => {
@@ -135,7 +140,7 @@ exports.evaluatePost = (req, res, next) => {
         } else if (post.usersDislikes.includes(req.body.userId)) {
           //// si l'array userDisliked contient le id de like //
           Post.update(
-            { _id: req.params.postId },
+            { id: req.params.postId },
             {
               $pull: { usersDislikes: req.body.userId },
               $inc: { dislikes: -1 },

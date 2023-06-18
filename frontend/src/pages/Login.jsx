@@ -3,7 +3,7 @@ import logo from "../image/groupomania-logoBW.svg"
 import "../styles.css"
 import { checkEmail, checkPassword } from "../validation"
 import { Link } from "react-router-dom"
-import { useLocalStorage } from "../utils/LocalStorage";
+import { useLocalStorage } from "../utils/LocalStorage"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 
@@ -18,7 +18,7 @@ export function Login() {
 
   const [authUserError, setAuthUserError] = useState("")
 
-  const [userIds, setUserIds] = useLocalStorage("userAuth");
+  const [userIds, setUserIds] = useLocalStorage("userAuth")
 
   //fonction onSubmit de react pour gérer l'envoi des datas
   function onSubmit(e) {
@@ -30,7 +30,7 @@ export function Login() {
     setEmailErrors(emailResults)
     setPasswordErrors(passwordResults)
 
-    if(emailResults.length === 0 && passwordResults.length === 0 ) {
+    if (emailResults.length === 0 && passwordResults.length === 0) {
       axios
         .post(
           "http://localhost:3000/api/auth/login",
@@ -45,11 +45,9 @@ export function Login() {
           }
         )
         .then((res) => {
-          const {userId, token} = res.data
+          const { userId, token } = res.data
           if (userId) {
-            
-
-            setUserIds([userId, token]);
+            setUserIds([userId, token])
 
             navigate(`/posts`)
             //navigate(`/userAccount/${userId}`)
@@ -59,86 +57,82 @@ export function Login() {
           setAuthUserError("Utilisateur inconnu")
           console.error("Echec connection au compte", error)
         })
-      }
     }
-  
-
+  }
 
   return (
     <>
-    <main>
-      <h1 className="title-form">S identifier </h1>
-      <form onSubmit={onSubmit} className="form">
-        <img src={logo} className="logo-groupomania"></img>
+      <main>
+        <h1 className="title-form">S identifier </h1>
+        <form onSubmit={onSubmit} className="form">
+          <img src={logo} className="logo-groupomania"></img>
 
-        {/*condition : si erreur alors activé classe "erreur" */}
+          {/*condition : si erreur alors activé classe "erreur" */}
 
-        <div
-          className={`form-container ${emailErrors.length > 0 ? "error" : ""}`}
-        >
-          <label className="label" htmlFor="email">
-            Email*
-          </label>
-          <input
-            type="email"
-            id="email"
-            className="input"
-            required
-            placeholder="ex: user@groupomania.com"
-            aria-required="true"
-            autoFocus
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <div
+            className={`form-container ${
+              emailErrors.length > 0 ? "error" : ""
+            }`}
+          >
+            <label className="label" htmlFor="email">
+              Email*
+            </label>
+            <input
+              type="email"
+              id="email"
+              className="input"
+              required
+              placeholder="ex: user@groupomania.com"
+              aria-required="true"
+              autoFocus
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
-          {emailErrors.length > 0 && (
-            <div className="error-message">{emailErrors.join(",")} </div>
+            {emailErrors.length > 0 && (
+              <div className="error-message">{emailErrors.join(",")} </div>
+            )}
+          </div>
+
+          {/*condition : si erreur alors activer classe "erreur" */}
+          <div
+            className={`form-container ${
+              passwordErrors.length > 0 ? "error" : ""
+            }`}
+          >
+            <label className="label" htmlFor="password">
+              Mot de passe*
+            </label>
+            <input
+              type="password"
+              id="password"
+              className="input"
+              required
+              placeholder="Mot de passe"
+              aria-required="true"
+              maxLength={50}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            {passwordErrors.length > 0 && (
+              <div className="error-message">{passwordErrors.join(", ")}</div>
+            )}
+          </div>
+
+          {authUserError && (
+            <div className="error-message">{authUserError}</div>
           )}
-        </div>
 
-        {/*condition : si erreur alors activer classe "erreur" */}
-        <div
-          className={`form-container ${
-            passwordErrors.length > 0 ? "error" : ""
-          }`}
-        >
-          <label className="label" htmlFor="password">
-            Mot de passe*
-          </label>
-          <input
-            type="password"
-            id="password"
-            className="input"
-            required
-            placeholder="Mot de passe"
-            aria-required="true"
-            maxLength={50}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <button className="btn" type="submit">
+            S identifier
+          </button>
 
-          {passwordErrors.length > 0 && (
-            <div className="error-message">{passwordErrors.join(", ")}</div>
-          )}
-        </div>
-
-        {authUserError && <div className="error-message">{authUserError}</div>}
-
-        <button className="btn" type="submit">
-          S identifier
-        </button>
-
-        <span>
-          <Link to="/register">CREE MON COMPTE </Link>
-        </span>
-      </form>
-    </main>
-
+          <span>
+            <Link to="/register">CREE MON COMPTE </Link>
+          </span>
+        </form>
+      </main>
     </>
   )
-          }
-          
-          
-
-
-
+}

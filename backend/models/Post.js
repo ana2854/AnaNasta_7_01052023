@@ -22,7 +22,7 @@ const Post = db.define(
       type: DataTypes.STRING(500),
     },
 
-    userImageUrl: {
+    imageUrl: {
       type: DataTypes.STRING,
       allowNull: true,
     },
@@ -65,7 +65,7 @@ const Post = db.define(
 console.log(db.models.Post) // true
 
 //synchronisation tables
-db.sync()
+db.sync({alter:true})
   .then(() => {
     console.log("Synchronisation modèle&table POST OK !")
   })
