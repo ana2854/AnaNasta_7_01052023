@@ -48,26 +48,27 @@ const User = db.define(
       defaultValue: Sequelize.NOW,
     },
     role: {
-      type: DataTypes.ENUM("admin", "basicUser"),
+      type: DataTypes.ENUM("admin", "basic"),
       allowNull: false,
-      defaultValue: "basicUser",
-    },
+      defaultValue: "basic",
+  
+    }
   },
-  {
-    tableName: "user",
-    modelName: "User",
-    underscored: false,
+   {
     freezeTableName: true,
+    timestamps: false,
   }
-)
+  );
+
+
 
 // `sequelize.define` also returns the model
 console.log(db.models.User) // true
 
 //synchronisation des tables
-db.sync({alter:true})
+db.sync()
   .then(() => {
-    console.log("synchronisation modèle&table USER OK !")
+    console.log("**synchronisation modèle&table USER OK ** !")
   })
   .catch((error) => {
     // Erreur

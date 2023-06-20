@@ -13,9 +13,10 @@ const Post = db.define(
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+     
       references: {
         model: "User",
-        foreignKey: "userId",
+        key: "userId",
       },
     },
     content: {
@@ -51,23 +52,20 @@ const Post = db.define(
     usersDislikes: {
       type: DataTypes.STRING(255),
       defaultValue: null,
+    }
     },
-  },
-  {
-    tableName : "post",
-    modelName : "Post",
-    underscored:false,
-    freezeTableName: true,
-  }
-)
+     {
+      freezeTableName: true
+    }
+    );
 
 // `sequelize.define` also returns the model
 console.log(db.models.Post) // true
 
 //synchronisation tables
-db.sync({alter:true})
+db.sync()
   .then(() => {
-    console.log("Synchronisation modèle&table POST OK !")
+    console.log("**Synchronisation modèle&table POST OK !**")
   })
   .catch((error) => {
     // Error occurred during database synchronization

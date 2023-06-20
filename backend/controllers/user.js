@@ -1,3 +1,4 @@
+
 //fonction login , signup + gestion du cryptage
 
 //package de cryptage
@@ -7,17 +8,16 @@ const User = require("../models/User")
 
 const jwt = require("jsonwebtoken")
 
-//La fonction signup va enregistrer les nvx utilisateurs (inscription)
-//cryptage du mot de passe
-//prend le mess crypt va crée un new user + mail
-//va enregistrer cet utilisateur dans la bdd
+
+
+// Function to register new users
 exports.signup = (req, res, next) => {
-  console.log("connexion à la route signup")
+  console.log("Connection route signup")
 
   bcrypt
     .hash(req.body.password, 10)
     .then((hash) => {
-      const role = req.body.role === "admin" ? "admin" : "basicUser"
+      const role = req.body.role === "admin" ? "admin" : "basic"
       const user = new User({
         email: req.body.email,
         password: hash,
@@ -25,40 +25,51 @@ exports.signup = (req, res, next) => {
       })
       user
         .save()
-        .then(() => res.status(201).json({ message: "Utilisateur créé !" }))
-        .catch((error) => res.status(400).json({ error }))
+        .then(() => {
+          console.log("Utilisateur crée")
+          res.status(201).json({ message: "Utilisateur créé !" })
+        })
+        .catch((error) => {
+          console.log("Erreur création user", error)
+          res.status(400).json({ error })
+        })
     })
-    .catch((error) => res.status(500).json({ error }))
+    .catch((error) => {
+      console.log("Erreur mot de passe pendant le hash", error)
+      res.status(500).json({ error })
+    })
 }
 
-//La fonction login permet de connecter les utilisateurs existants
+// Function to handle user login
 exports.login = (req, res, next) => {
-  //findOne va trouver 1 utilistateur ac mail correspondant au mail entré
   User.findOne({ where: { email: req.body.email } })
     .then((user) => {
       if (!user) {
-        //si utilisateur non trouvé
+        console.log("Utilisateur non trouvé")
         return res.status(401).json({ error: "Utilisateur non trouvé !" })
       }
-      //bcypt va comparer le mdp du user qui vient de se connecter et le hash de la bdd
       bcrypt
         .compare(req.body.password, user.password)
-        //boolean pr savoir si comparaison des mdp valable ou non
         .then((valid) => {
           if (!valid) {
-            //si le résultat de la comparaison est différent alors
+            console.log("Mot de passe incorrect!")
             return res.status(401).json({ error: "Mot de passe incorrect !" })
           }
-          //true, renvoi une requête ok + renvoi objet json userId et token
+          console.log("User connecté")
           res.status(200).json({
             userId: user.userId,
-            token: jwt.sign({ userId: user.userId }, process.env.SECRETKEY, {
-              expiresIn: "24h",
-              role: user.role,
+            token: jwt.sign({ userId: user.userId, role: user.role }, process.env.SECRETKEY, {
+              expiresIn: "24h"
             }),
           })
         })
-        .catch((error) => res.status(500).json({ error }))
+        .catch((error) => {
+          console.log("Erreur comparaison mot de passe:", error)
+          res.status(500).json({ error })
+        })
     })
-    .catch((error) => res.status(500).json({ error }))
+    .catch((error) => {
+      console.log("Erreur promesse login", error)
+      res.status(500).json({ error })
+    })
 }

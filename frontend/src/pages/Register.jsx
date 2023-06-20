@@ -15,7 +15,6 @@ export function Register() {
   const [emailErrors, setEmailErrors] = useState([])
   const [passwordErrors, setPasswordErrors] = useState([])
 
- 
 
   //fonction onSubmit de react pour gérer l'envoi des datas
 
@@ -33,6 +32,7 @@ export function Register() {
         .post("http://localhost:3000/api/auth/signup", {
           email,
           password,
+        
         })
         .then((response) => {
           console.log("Création de compte réussie!", response.data)
@@ -49,7 +49,7 @@ export function Register() {
 
   return (
     <>
-    <main>
+    <main className="main-form">
       <h1 className="title-form">Créer mon compte </h1>
       <form onSubmit={onSubmit} className="form">
         <img src={logo} className="logo-groupomania"></img>

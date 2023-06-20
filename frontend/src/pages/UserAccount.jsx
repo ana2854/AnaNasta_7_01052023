@@ -1,33 +1,15 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 
 export function UserAccount() {
-  const { userId } = useParams();
   const navigate = useNavigate();
-
-  // Check if local storage contains user authentication token
-  const isAuthenticated = !!localStorage.getItem('userIds');
-  const isAuthorized = isAuthenticated && userId;
-
-  // Logout function
+  
+  // se déconnecter
   function handleLogout() {
-    // Clear user data from local storage
+    //effacer données local storage
     localStorage.removeItem('userAuth');
 
-    // Redirect the user to the login page
+    // rediriger vers la page login
     navigate('/login');
-  }
-
-  useEffect(() => {
-    if (!isAuthorized) {
-      // Redirect the user to the login page
-      navigate('/login');
-    }
-  }, [isAuthorized, navigate]);
-
-  if (!isAuthorized) {
-    // Render null or a placeholder while the user is being redirected
-    return null;
   }
 
   return (
@@ -37,3 +19,5 @@ export function UserAccount() {
     </main>
   );
 }
+
+ 
