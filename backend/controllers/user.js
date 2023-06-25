@@ -1,4 +1,3 @@
-
 //fonction login , signup + gestion du cryptage
 
 //package de cryptage
@@ -7,7 +6,6 @@ const bcrypt = require("bcrypt")
 const User = require("../models/User")
 
 const jwt = require("jsonwebtoken")
-
 
 
 // Function to register new users
@@ -40,6 +38,7 @@ exports.signup = (req, res, next) => {
     })
 }
 
+/*
 // Function to handle user login
 exports.login = (req, res, next) => {
   User.findOne({ where: { email: req.body.email } })
@@ -55,16 +54,59 @@ exports.login = (req, res, next) => {
             console.log("Mot de passe incorrect!")
             return res.status(401).json({ error: "Mot de passe incorrect !" })
           }
-          console.log("User connecté")
+           console.log("Utilisateur connecté")
           res.status(200).json({
             userId: user.userId,
             token: jwt.sign({ userId: user.userId, role: user.role }, process.env.SECRETKEY, {
               expiresIn: "24h"
             }),
+
+          })
+        })
+       
+        .catch((error) => {
+          console.log("Erreur comparaison mot de passe:", error)
+          res.status(500).json({ error })
+        })
+    })
+    .catch((error) => {
+      console.log("Erreur promesse login", error)
+      res.status(500).json({ error })
+    })
+}
+*/
+
+// TEST
+
+// Function to handle user login
+exports.login = (req, res, next) => {
+  User.findOne({ where: { email: req.body.email } })
+    .then((user) => {
+      if (!user) {
+        console.log("Utilisateur non trouvé")
+        return res.status(401).json({ error: "Utilisateur non trouvé !" })
+      }
+      bcrypt
+        .compare(req.body.password, user.password)
+        .then((valid) => {
+          if (!valid) {
+            console.log("Mot de passe incorrect!")
+            return res.status(401).json({ error: "Mot de passe incorrect !" })
+          }
+          console.log("Utilisateur connecté login")
+          let token = jwt.sign(
+            { userId: user.userId, role: user.role },
+            process.env.SECRETKEY,
+            { expiresIn: "24h" }
+          )
+          console.log("Generated token in the user login function:", token)
+          res.status(200).json({
+            userId: user.userId,
+            token: token,
           })
         })
         .catch((error) => {
-          console.log("Erreur comparaison mot de passe:", error)
+          console.log("Erreur comparaison mot de passe login:", error)
           res.status(500).json({ error })
         })
     })

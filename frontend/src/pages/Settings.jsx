@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-export function UserAccount() {
+export function Settings() {
   const navigate = useNavigate();
   
   // se déconnecter

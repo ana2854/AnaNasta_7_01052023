@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes } = require("sequelize")
 const db = require("../config/database")
+const User = require("./User")
 
 const Post = db.define(
   "post",
@@ -13,14 +14,14 @@ const Post = db.define(
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-     
+
       references: {
-        model: "User",
+        model: User,
         key: "userId",
       },
     },
     content: {
-      type: DataTypes.STRING(500),
+      type: DataTypes.STRING(1000),
     },
 
     imageUrl: {
@@ -30,12 +31,12 @@ const Post = db.define(
     dateCreated: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: Sequelize.NOW,
+
     },
     dateUpdated: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: Sequelize.NOW,
+
     },
     likes: {
       type: DataTypes.INTEGER,
@@ -52,16 +53,21 @@ const Post = db.define(
     usersDislikes: {
       type: DataTypes.STRING(255),
       defaultValue: null,
-    }
     },
-     {
-      freezeTableName: true
-    }
-    );
+  },
+  {
+    freezeTableName: true,
+    timestamps: true,
+    createdAt: "dateCreated",
+    updatedAt: "dateUpdated",
+    modelName: "post",
+  }
+)
 
 // `sequelize.define` also returns the model
 console.log(db.models.Post) // true
 
+/*
 //synchronisation tables
 db.sync()
   .then(() => {
@@ -71,6 +77,6 @@ db.sync()
     // Error occurred during database synchronization
     console.error("Erreur synchronisation modèle&table POST ! ", error)
   })
-
+*/
 //exportation du modèle
 module.exports = Post

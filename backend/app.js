@@ -12,6 +12,9 @@ require("dotenv").config()
 //connexion fichier bdd
 const db = require("./config/database")
 
+const User = require("./models/User")
+const Post = require("./models/Post")
+
 const userRoutes = require("./routes/user")
 
 const postRoutes = require("./routes/post")
@@ -33,6 +36,27 @@ connectionToSequelizeDb()
 //importation associations des modèles
 require("./models/associations")
 
+
+//synchronisation models
+async function syncModels(){
+
+try {
+  await User.sync()
+  console.log("**Synchronisation des modèle&table USER OK**");
+} catch(error){
+  console.log("**Erreur synchronisation modèle&table USER**", error)
+} 
+
+try {
+  await Post.sync();
+  console.log("**Synchronisation modèle&table POST ok**");
+} catch (error) {
+  console.log("Erreur synchronisation modèle&table POST", error);
+}
+}
+syncModels();
+
+
 //gestion des datas entrantes (parsed)
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
@@ -51,25 +75,30 @@ app.use((req, res, next) => {
   next()
 })
 
-//chemin vers routes du user
-app.use("/api/auth", userRoutes)
-
-//chemin vers routes des posts
-app.use("/api/post", postRoutes)
-
-//transfert image
-app.use("/images", express.static(path.join(__dirname, "images")))
 
 app.use(helmet())
-
 
 /*app.use((req, res) => {
   res.json({ message: "Connexion ok !" })
 })*/
 app.use((req, res, next) => {
   console.log("Incoming request:", req.method, req.url);
-  res.json({ message: "Connexion ok!" });
+  next(); 
 });
+
+
+
+//chemin vers routes USER (human)
+app.use("/api/auth", userRoutes)
+
+//chemin vers routes POSTS
+app.use("/api/post", postRoutes)
+
+//transfert image
+app.use("/images", express.static(path.join(__dirname, "images")))
+
+
+
 
 
 module.exports = app

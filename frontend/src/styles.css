@@ -1,39 +1,35 @@
 body {
   font-family: "Lato", sans-serif;
   background-color: whitesmoke;
-  color :  #0a2351;
+  color: #0a2351;
   box-sizing: border-box;
-
 }
 .wrapper-content {
   width: 95%;
   height: auto;
   margin: auto;
-  border : 6px solid yellow;
- 
+  border: 6px solid yellow;
 }
 
-.wrapper-postList{
+.wrapper-postList {
   background-color: #4286f4;
 }
 
-
-
 .main-form {
   display: flex;
-   justify-content: center;
-   flex-direction: column;
-   align-items: center;
-   border : 3px solid red;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  border: 3px solid red;
 }
 
 .title-form {
- font-size: 1.7rem;
- text-align: center;
- color: #0a2351;
- background-color: white;
- padding: 6px;
- width: 350px;
+  font-size: 1.7rem;
+  text-align: center;
+  color: #0a2351;
+  background-color: white;
+  padding: 6px;
+  width: 350px;
 }
 
 .title-postList {
@@ -53,8 +49,7 @@ body {
   border-radius: 15px;
   box-sizing: border-box;
 
- width: 350px;
-  
+  width: 350px;
 }
 
 .form-container {
@@ -83,7 +78,8 @@ input[type="password"] {
   outline: 1px solid red;
 }
 
-.form-container.error .error-message, .error-message {
+.form-container.error .error-message,
+.error-message {
   color: red;
   font-weight: bold;
   overflow-wrap: break-word;
@@ -96,11 +92,10 @@ input[type="password"] {
   letter-spacing: 0.1em;
   padding: 14px 14px;
   margin: 15px 0;
- 
+
   border-radius: 10px;
   cursor: pointer;
   width: 60%;
-
 }
 
 .btn:focus {
@@ -128,24 +123,20 @@ a {
 a::after {
   content: "";
   position: absolute;
-  background-color:#53a8b6 ;
+  background-color: #53a8b6;
   height: 3px;
   width: 0;
-  left:0;
-  bottom : -10px;
-
+  left: 0;
+  bottom: -10px;
 }
 
 a:hover:after {
   width: 100%;
-
 }
 
-
 .top-nav {
-
   color: hsl(200, 20%, 95%);
- background: hsl(200, 100%, 10%);
+  background: hsl(200, 100%, 10%);
   display: flex;
   justify-content: space-between;
   width: auto;
@@ -157,9 +148,7 @@ a:hover:after {
   top: 0;
   z-index: 10000;
 
-  border : 6px solid lightseagreen;
-
-  
+  border: 6px solid lightseagreen;
 }
 
 .nav-list {
@@ -171,8 +160,7 @@ a:hover:after {
   width: auto;
 }
 
-.nav-list li a{
+.nav-list li a {
   color: white;
   font-size: large;
 }
-

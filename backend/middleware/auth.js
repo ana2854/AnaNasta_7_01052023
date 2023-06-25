@@ -1,25 +1,21 @@
-//Vérifie les tockens
 
 //package pour vérifier les tockens
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
+require("dotenv").config()
 
 module.exports = (req, res, next) => {
   try {
-    //on récupère le token authorization
-    const token = req.headers.authorization.split(" ")[1]
-    //on analyse vérifie le token avec la clé secrète crée dans la fonction login
-    const decodedToken = jwt.verify(token, process.env.SECRETKEY)
-
-    //on récupère le userID qui est dedans et on vérifie que userID est le même que celui de la requête
-    const userId = decodedToken.userId
-
-    if (req.body.userId && req.body.userId !== userId) {
-      throw "User Id non valable !"
-    } else {
-      //on passe la requête à notre prochain middleware
-      next()
-    }
+    const token = req.headers.authorization.split(" ")[1];
+    console.log("auth middleware token:" , token)
+    const decodedToken = jwt.verify(token.replace(/"/g, ""), process.env.SECRETKEY);
+    console.log("auth middeware Secret Key used for token verification:", process.env.SECRETKEY);
+    req.userData = { userId: decodedToken.userId, role: decodedToken.role };
+    console.log('auth middleware req.body.userId:', req.body.userId);
+    console.log('auth middleware userId:', decodedToken.userId);
+    next();
   } catch (error) {
-    res.status(401).json({ error: error } | "Requête non authentifiée")
+    console.error('Auth Middleware: Error:', error);
+    res.status(401).json({ error: "Unauthorized Request" });
   }
-}
+};
+

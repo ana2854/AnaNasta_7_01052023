@@ -1,19 +1,16 @@
-import { Outlet, Navigate } from "react-router-dom";
-import { getItem } from "./LocalStorage";
-import { useParams } from "react-router-dom";
-
+import { Outlet, Navigate } from "react-router-dom"
+import { getItem } from "./LocalStorage"
 
 const PrivateRoutes = () => {
-  const authToken = getItem("userAuth");
-  const userIdUrl = useParams();
+  const authToken = getItem("userAuth")
 
-  if (!authToken && !userIdUrl) {
-    // If user is not logged in, redirect to the login page
-    return <Navigate to="/login" />;
+  if (!authToken) {
+    // user non connecté
+    return <Navigate to="/login" />
   }
 
-  // Access the protected content
-  return <Outlet />;
-};
+  // accès ok , user identifié
+  return <Outlet />
+}
 
-export default PrivateRoutes;
+export default PrivateRoutes

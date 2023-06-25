@@ -2,36 +2,45 @@
 
 //importation du modèle d'une post
 const Post = require("../models/Post")
-
-//importation du package fs de node
 const fs = require("fs")
-
-//const permissions = require('./permissions');
+const path = require("path")
 
 exports.createPost = (req, res, next) => {
   console.log(req.body.content)
   console.log("post crée")
 
-  const postObject = JSON.parse(req.body.content)
-  console.log(postObject)
-  delete postObject.postId
+  const postObject = {
+    ...req.body,
+    userId: req.body.userId,
+  }
+  console.log("postObject de ma fonction créer post", postObject)
+  console.log(
+    "userId from my post object from my create function",
+    postObject.userId
+  )
+
+  const image = req.file
+    ? `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
+    : null
+
   const post = new Post({
     ...postObject,
-    imageUrl: `${req.protocol}://${req.get("host")}/images/${
-      req.file.filename
-    }`,
+    imageUrl: image,
   })
+  console.log("new post object from login function", postObject)
+
   post
     .save()
-    .then(() =>
-      res
-        .status(201)
-        .json({
-          date: post.dateCreated,
-          post: post.content,
-          image: post.imageUrl,
-        })
-    )
+    .then((savedPost) => {
+      const { dateCreated, content, imageUrl, userId } = savedPost
+
+      res.status(201).json({
+        date: dateCreated,
+        content: content,
+        image: imageUrl,
+        userId: userId,
+      })
+    })
     .catch((error) => {
       console.log(error)
 
@@ -54,45 +63,66 @@ exports.getOnePost = (req, res, next) => {
     })
 }
 
-//route pour modifier une post
+//route modification post
+exports.modifyPost = async (req, res, next) => {
+  try {
+    const post = await Post.findOne({ where: { postId: req.params.id } })
 
-exports.modifyPost = (req, res, next) => {
-  Post.findOne({ where : {postId: req.params.id }})
-    //if (permissions.isAdmin(req) || permissions.isPostOwner(req))
+    let filename
+    if (post.imageUrl) {
+      filename = post.imageUrl.split("/images/")[1]
+    }
+    const postObject = req.file
+      ? {
+          ...req.body.content,
+          imageUrl: `${req.protocol}://${req.get("host")}/images/${
+            req.file.filename
+          }`,
+        }
+      : { ...req.body }
 
-    .then((post) => {
-      const filename = post.imageUrl.split("/images/")[1]
-      fs.unlink(`images/${filename}`, () => {
-        const postObject = req.file
-          ? {
-              ...JSON.parse(req.body.content),
-              imageUrl: `${req.protocol}://${req.get("host")}/images/${
-                req.file.filename
-              }`,
-            }
-          : { ...req.body }
-          Post.update(postObject, { where: { postId: req.params.id } })
-       // Post.update({ id: req.params.id }, { ...postObject, id: req.params.id })
-          .then(() => res.status(200).json({ message: "Post modifiée !" }))
+    await Post.update(postObject, { where: { postId: req.params.id } })
 
-          .catch((error) => res.status(400).json({ error }))
+    if (req.file && filename) {
+
+      const filePath = path.join("images", filename)
+
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          console.error("erreur suppression ancienne image", err)
+        } else {
+          console.log(`ancienne image supprimée: ${filePath}`)
+        }
       })
-    })
-    .catch((error) => res.status(500).json({ error }))
+    }
+
+    res.status(200).json({ message: "Post modifié !" })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error })
+  }
 }
 
 //route pour supprimer une post
 exports.deletePost = (req, res, next) => {
   //if (permissions.isAdmin(req) || permissions.isPostOwner(req))
-  Post.findOne({ where : {postId: req.params.id }})
+  Post.findOne({ where: { postId: req.params.id } })
     .then((post) => {
-      const filename = post.imageUrl.split("/images/")[1]
-      //fonction callback - agit qd action précédente terminée
-      fs.unlink(`images/${filename}`, () => {
-        Post.deleteOne({ where : {postId: req.params.id }})
+      if (post.imageUrl) {
+        const filename = post.imageUrl.split("/images/")[1]
+
+        fs.unlink(`images/${filename}`, () => {
+          Post.destroy({ where: { postId: req.params.id } })
+            .then(() =>
+              res.status(200).json({ message: "Post & image supprimés !" })
+            )
+            .catch((error) => res.status(400).json({ error }))
+        })
+      } else {
+        Post.destroy({ where: { postId: req.params.id } })
           .then(() => res.status(200).json({ message: "Post supprimé !" }))
           .catch((error) => res.status(400).json({ error }))
-      })
+      }
     })
     .catch((error) => res.status(500).json({ error }))
 }

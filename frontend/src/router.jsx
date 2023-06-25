@@ -1,19 +1,19 @@
 import { Navigate, createBrowserRouter } from "react-router-dom"
-import { useRouteError } from "react-router-dom"
+// import { useRouteError } from "react-router-dom"
 
 //import {Routes, route } from "react-router-dom"
 //import { NavLayout } from "./Nav/NavLayout"
 
 import { Login } from "./pages/Login"
 import { Register } from "./pages/Register"
-import { PostList } from "./pages/PostList"
+// import { postListRoute } from "./pages/PostList"
 //import PrivateRoutes from "./utils/PrivateRoutes";
-import { Post } from './pages/Post';
-import { UserAccount } from "./pages/UserAccount"
-import { NavLayout } from "./Nav/NavLayout"
+//import { Post } from "./pages/Post"
+//import { Settings} from "./pages/Settings"
+// import { NavLayout } from "./Nav/NavLayout"
 // import { UserProfil } from './pages/UserProfil';
 
-/*
+
 export const router = createBrowserRouter([
 
   {
@@ -30,35 +30,23 @@ export const router = createBrowserRouter([
     element: <Register />,
   },
   
-])*/
+])
 
+
+/*
 export const router = createBrowserRouter([
+
   {
     path: "/",
-    element: <NavLayout />,
+    element: <PrivateRoutes />,
     children: [
       {
-        errorElement: <ErrorPage />,
-        children: [
-          { index: true, element: <Navigate to="/posts" /> },
-          {
-            path: "posts",
-            children: [
-              {
-                index: true,
-                element: <PostList />,
-              },
-              {path :  ":postId", 
-               element : <Post/>,
-              },
-            ],
-          },
-
-          {
-            path: "accountUser",
-            element: <UserAccount />,
-          },
-        ],
+        path: "navLayout",
+        element: <navLayout />,
+      },
+      {
+        path: "about",
+        element: <About />
       },
     ],
   },
@@ -66,12 +54,11 @@ export const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
-
   {
-    path: "/register",
-    element: <Register />,
+    path: "*",
+    element: <PageNotFound />
   },
-])
+];
 
 function ErrorPage() {
   const error = useRouteError()
@@ -88,3 +75,4 @@ function ErrorPage() {
     </>
   )
 }
+*/

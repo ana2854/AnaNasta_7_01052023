@@ -3,7 +3,7 @@ import logo from "../image/groupomania-logoBW.svg"
 import "../styles.css"
 import { checkEmail, checkPassword } from "../validation"
 import { Link } from "react-router-dom"
-import {setItem} from "../utils/LocalStorage"
+import { setItem } from "../utils/LocalStorage"
 import { useNavigate } from "react-router-dom"
 
 import axios from "axios"
@@ -19,8 +19,6 @@ export function Login() {
 
   const [authUserError, setAuthUserError] = useState("")
 
-  
-
   //fonction onSubmit de react pour gérer l'envoi des datas
   function onSubmit(e) {
     e.preventDefault()
@@ -33,21 +31,18 @@ export function Login() {
 
     if (emailResults.length === 0 && passwordResults.length === 0) {
       axios
-        .post(
-          "http://localhost:3000/api/auth/login",
-          {
-            email,
-            password,
-          }
-        )
+        .post("http://localhost:3000/api/auth/login", {
+          email,
+          password,
+        })
         .then((res) => {
           const { userId, token } = res.data
           if (userId) {
             setItem("userAuth", [userId, token])
 
-            navigate(`/posts/${userId}`)
+            navigate(`/posts`)
             //navigate(`/userAccount/${userId}`)
-            console.log("connexion au compte ok ");
+            console.log("connexion au compte ok ")
           }
         })
         .catch((error) => {
@@ -60,10 +55,8 @@ export function Login() {
   return (
     <>
       <main className="main-form">
-       <h1 className="title-form">S identifier </h1>
+        <h1 className="title-form">S identifier </h1>
         <form onSubmit={onSubmit} className="form">
- 
-
           <img src={logo} className="logo-groupomania"></img>
 
           {/*condition : si erreur alors activé classe "erreur" */}
