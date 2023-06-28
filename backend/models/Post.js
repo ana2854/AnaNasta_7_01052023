@@ -65,18 +65,8 @@ const Post = db.define(
 )
 
 // `sequelize.define` also returns the model
-console.log(db.models.Post) // true
+console.log(Post === db.models.post);// true
 
-/*
-//synchronisation tables
-db.sync()
-  .then(() => {
-    console.log("**Synchronisation modèle&table POST OK !**")
-  })
-  .catch((error) => {
-    // Error occurred during database synchronization
-    console.error("Erreur synchronisation modèle&table POST ! ", error)
-  })
-*/
+
 //exportation du modèle
 module.exports = Post

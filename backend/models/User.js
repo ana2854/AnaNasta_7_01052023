@@ -63,20 +63,8 @@ const User = db.define(
 
 
 // `sequelize.define` also returns the model
-console.log(db.models.User) // true
+console.log(User === db.models.user);
 
-/*
-//synchronisation des tables
-db.sync()
-  .then(() => {
-    console.log("**synchronisation modèle&table USER OK ** !")
-  })
-  .catch((error) => {
-    // Erreur
-    console.error("Erreur synchronisation modèle&table USER ! ", error)
-  })
-
-  */
 
 //exportation du modèle
 module.exports = User

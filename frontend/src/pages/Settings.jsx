@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export function Settings() {
   const navigate = useNavigate();
@@ -7,6 +8,8 @@ export function Settings() {
   function handleLogout() {
     //effacer données local storage
     localStorage.removeItem('userAuth');
+
+    axios.defaults.headers.common["Authorization"] = null;
 
     // rediriger vers la page login
     navigate('/login');

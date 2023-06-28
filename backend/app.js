@@ -19,8 +19,6 @@ const userRoutes = require("./routes/user")
 
 const postRoutes = require("./routes/post")
 
-
-
 //TEST DB SEQUELIZE
 async function connectionToSequelizeDb() {
   try {
@@ -36,26 +34,23 @@ connectionToSequelizeDb()
 //importation associations des modèles
 require("./models/associations")
 
-
 //synchronisation models
-async function syncModels(){
+async function syncModels() {
+  try {
+    await User.sync()
+    console.log("**Synchronisation des modèle&table USER OK**")
+  } catch (error) {
+    console.log("**Erreur synchronisation modèle&table USER**", error)
+  }
 
-try {
-  await User.sync()
-  console.log("**Synchronisation des modèle&table USER OK**");
-} catch(error){
-  console.log("**Erreur synchronisation modèle&table USER**", error)
-} 
-
-try {
-  await Post.sync();
-  console.log("**Synchronisation modèle&table POST ok**");
-} catch (error) {
-  console.log("Erreur synchronisation modèle&table POST", error);
+  try {
+    await Post.sync()
+    console.log("**Synchronisation modèle&table POST ok**")
+  } catch (error) {
+    console.log("Erreur synchronisation modèle&table POST", error)
+  }
 }
-}
-syncModels();
-
+syncModels()
 
 //gestion des datas entrantes (parsed)
 app.use(express.urlencoded({ extended: true }))
@@ -75,31 +70,20 @@ app.use((req, res, next) => {
   next()
 })
 
-
 app.use(helmet())
 
-/*app.use((req, res) => {
-  res.json({ message: "Connexion ok !" })
-})*/
 app.use((req, res, next) => {
-  console.log("Incoming request:", req.method, req.url);
-  next(); 
-});
+  console.log("connexion entrante:", req.method, req.url)
+  next()
+})
 
-
-
-//chemin vers routes USER (human)
+//Routes USER (human)
 app.use("/api/auth", userRoutes)
 
-//chemin vers routes POSTS
+//Routes POSTS (message)
 app.use("/api/post", postRoutes)
 
 //transfert image
 app.use("/images", express.static(path.join(__dirname, "images")))
 
-
-
-
-
 module.exports = app
-

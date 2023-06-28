@@ -1,5 +1,4 @@
 //ROUTEUR -logique de rooting
-
 const express = require('express');
 
 //middleware authentification
@@ -32,6 +31,17 @@ router.post('/', auth, multer, (req, res, next) => {
     postCtrl.createPost(req, res, next);
   });
 
+  router.get('/latest', auth, (req, res, next) => {
+    console.log('accès aux posts les plus récents');
+    postCtrl.getLatestPosts(req, res, next);
+  });
+
+
+router.put('/:id', auth, adminCheck, multer, (req, res, next) => {
+    console.log('Modifier un post');
+    postCtrl.modifyPost(req, res, next);
+  });
+
 
 router.get('/:id', auth, (req, res, next) => {
     console.log('route accès à un post');
@@ -43,14 +53,12 @@ router.get('/:id', auth, (req, res, next) => {
     postCtrl.getAllPosts(req, res, next);
   });
   
-  router.put('/:id', auth, adminCheck, multer, (req, res, next) => {
-    console.log('Modifier un post');
-    postCtrl.modifyPost(req, res, next);
-  });
   
   router.delete('/:id', auth, adminCheck, (req, res, next) => {
     console.log('Supprimer un post');
     postCtrl.deletePost(req, res, next);
   });
+
+ 
 
 module.exports = router;

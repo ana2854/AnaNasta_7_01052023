@@ -7,5 +7,5 @@ export function getItem(key) {
 }
 
 export function removeItem(key) {
-  return JSON.parse(localStorage.removeItem(key))
+  localStorage.removeItem(key)
 }

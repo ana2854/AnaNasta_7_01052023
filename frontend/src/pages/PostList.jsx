@@ -1,34 +1,31 @@
-//import axios from "axios"
-//import {useLoaderData} from "react-router-dom"
+// page d'accueil avec posts de tous les users
 
-export function PostList() {
-//const posts = useLoaderData()
+import { useLoaderData } from "react-router-dom"
+import { getLatestPosts} from "../api/posts"
+import { PostCard } from "../component/PostCard"
 
 
+// eslint-disable-next-line react-refresh/only-export-components
+function PostList() {
+  const posts = useLoaderData()
 
   return (
     <>
-      <div className="wrapper-postList">
-        <h1 className="page-title">Posts of all users </h1>
-
-      
-        <div className="card-list">A card</div>
+     <h1>POST LIST ROUTES</h1>
+      <div className="grille-posts">
+        {posts.map(post => (
+          <PostCard key={post.postId} {...post} />
+        ))}
       </div>
     </>
   )
 }
 
-/*
-function loader({request : {signal}}) {
- 
-    return axios 
-    .get("http://localhost:3000/posts", {signal})
-    .then(res =>  res.data)
-  
+function loader({ request: { signal } }) {
+  return getLatestPosts({ signal })
 }
 
 export const postListRoute = {
-  loader, 
-  element : <PostList/>
+  loader,
+  element: <PostList />,
 }
-*/

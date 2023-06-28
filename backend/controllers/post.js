@@ -5,19 +5,15 @@ const Post = require("../models/Post")
 const fs = require("fs")
 const path = require("path")
 
+//création post
 exports.createPost = (req, res, next) => {
   console.log(req.body.content)
   console.log("post crée")
 
   const postObject = {
     ...req.body,
-    userId: req.body.userId,
+    userId: req.userData.userId,
   }
-  console.log("postObject de ma fonction créer post", postObject)
-  console.log(
-    "userId from my post object from my create function",
-    postObject.userId
-  )
 
   const image = req.file
     ? `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
@@ -48,25 +44,14 @@ exports.createPost = (req, res, next) => {
     })
 }
 
-//route pour récupérer une post
-exports.getOnePost = (req, res, next) => {
-  Post.findOne({
-    where: { postId: req.params.id },
-  })
-    .then((post) => {
-      res.status(200).json(post)
-    })
-    .catch((error) => {
-      res.status(404).json({
-        error: error,
-      })
-    })
-}
-
 //route modification post
 exports.modifyPost = async (req, res, next) => {
   try {
     const post = await Post.findOne({ where: { postId: req.params.id } })
+
+    if (req.userData.userId !== post.userId && req.userData.role !== "admin") {
+      return res.status(403).json({ error: "Non-autorisé" })
+    }
 
     let filename
     if (post.imageUrl) {
@@ -84,7 +69,6 @@ exports.modifyPost = async (req, res, next) => {
     await Post.update(postObject, { where: { postId: req.params.id } })
 
     if (req.file && filename) {
-
       const filePath = path.join("images", filename)
 
       fs.unlink(filePath, (err) => {
@@ -103,11 +87,62 @@ exports.modifyPost = async (req, res, next) => {
   }
 }
 
-//route pour supprimer une post
-exports.deletePost = (req, res, next) => {
-  //if (permissions.isAdmin(req) || permissions.isPostOwner(req))
-  Post.findOne({ where: { postId: req.params.id } })
+//accès à un post
+exports.getOnePost = (req, res, next) => {
+  Post.findOne({
+    where: { postId: req.params.id },
+  })
     .then((post) => {
+      res.status(200).json(post)
+    })
+    .catch((error) => {
+      res.status(404).json({
+        error: error,
+      })
+    })
+}
+
+//accès aux posts
+exports.getAllPosts = (req, res, next) => {
+  console.log("userId of my function ", req.userData.userId)
+  Post.findAll()
+    .then((posts) => {
+      res.status(200).json(posts)
+    })
+    .catch((error) => {
+      res.status(400).json({
+        error: error,
+      })
+    })
+}
+
+//posts les plus récents
+exports.getLatestPosts = (req, res, next) => {
+  console.log("function req.userData.userId : ", req.userData.userId)
+  Post.findAll({
+    order: [["dateCreated", "DESC"]],
+  })
+    .then((posts) => {
+      res.status(200).json(posts)
+    })
+    .catch((error) => {
+      res.status(400).json({
+        error: error,
+      })
+    })
+}
+
+//suppression post
+exports.deletePost = (req, res, next) => {
+  Post.findOne({ where: { postId: req.params.id } })
+
+    .then((post) => {
+      if (
+        req.userData.userId !== post.userId &&
+        req.userData.role !== "admin"
+      ) {
+        return res.status(403).json({ error: "Non-autorisé" })
+      }
       if (post.imageUrl) {
         const filename = post.imageUrl.split("/images/")[1]
 
@@ -125,19 +160,6 @@ exports.deletePost = (req, res, next) => {
       }
     })
     .catch((error) => res.status(500).json({ error }))
-}
-
-//route pour récupérer toutes les posts
-exports.getAllPosts = (req, res, next) => {
-  Post.findAll()
-    .then((posts) => {
-      res.status(200).json(posts)
-    })
-    .catch((error) => {
-      res.status(400).json({
-        error: error,
-      })
-    })
 }
 
 /*

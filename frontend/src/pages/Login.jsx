@@ -2,11 +2,11 @@ import { useState } from "react"
 import logo from "../image/groupomania-logoBW.svg"
 import "../styles.css"
 import { checkEmail, checkPassword } from "../validation"
+import { baseApi } from "../api/base"
 import { Link } from "react-router-dom"
 import { setItem } from "../utils/LocalStorage"
 import { useNavigate } from "react-router-dom"
 
-import axios from "axios"
 
 export function Login() {
   const navigate = useNavigate()
@@ -30,18 +30,21 @@ export function Login() {
     setPasswordErrors(passwordResults)
 
     if (emailResults.length === 0 && passwordResults.length === 0) {
-      axios
-        .post("http://localhost:3000/api/auth/login", {
+      baseApi
+        .post("/api/auth/login", {
           email,
           password,
-        })
+        }, 
+        {headers : {"Authorization": ""}})
         .then((res) => {
-          const { userId, token } = res.data
+          const { userId, token, role } = res.data
           if (userId) {
-            setItem("userAuth", [userId, token])
+            setItem("userAuth", {userId, token, role})
+
+            baseApi.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
             navigate(`/posts`)
-            //navigate(`/userAccount/${userId}`)
+    
             console.log("connexion au compte ok ")
           }
         })
