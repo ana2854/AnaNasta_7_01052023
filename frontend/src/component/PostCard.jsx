@@ -1,4 +1,4 @@
-// vignette posts page d'accueil 
+// vignette posts page d'accueil + page user
 
 import { Link } from "react-router-dom"
 

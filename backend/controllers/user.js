@@ -64,6 +64,7 @@ exports.login = (req, res, next) => {
           res.status(200).json({
             userId: user.userId,
             token: token,
+            role: user.role,
           })
         })
         .catch((error) => {

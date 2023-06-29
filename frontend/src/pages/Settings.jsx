@@ -18,7 +18,7 @@ export function Settings() {
   return (
     <main>
       <h1>Mon compte</h1>
-      <button className="btn-logout" onClick={handleLogout}>LOG OUT</button>
+      <button className="btn-logout" onClick={handleLogout}>Me déconnecter</button>
     </main>
   );
 }

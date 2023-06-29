@@ -104,7 +104,6 @@ exports.getOnePost = (req, res, next) => {
 
 //accès aux posts
 exports.getAllPosts = (req, res, next) => {
-  console.log("userId of my function ", req.userData.userId)
   Post.findAll()
     .then((posts) => {
       res.status(200).json(posts)
@@ -118,7 +117,7 @@ exports.getAllPosts = (req, res, next) => {
 
 //posts les plus récents
 exports.getLatestPosts = (req, res, next) => {
-  console.log("function req.userData.userId : ", req.userData.userId)
+
   Post.findAll({
     order: [["dateCreated", "DESC"]],
   })
@@ -161,6 +160,22 @@ exports.deletePost = (req, res, next) => {
     })
     .catch((error) => res.status(500).json({ error }))
 }
+
+//accès aux post d'un utilisateur
+  exports.getUserPosts = (req,res, next) => {
+    const userId = req.params.userId
+    Post.findAll({
+      where : {userId},
+      order: [["dateCreated", "DESC"]],
+  })
+    .then((posts)=> {
+      res.status(200).json(posts)
+    })
+      .catch((error)=> {
+        res.status(400).json({error})
+      })
+    }
+  
 
 /*
 exports.evaluatePost = (req, res, next) => {

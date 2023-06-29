@@ -27,4 +27,5 @@ router.get("/:id", (req, res) => {
   userCtrl.getOneUser(req, res)
 })
 
+
 module.exports = router

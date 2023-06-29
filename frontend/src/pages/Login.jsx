@@ -26,29 +26,38 @@ export function Login() {
     const emailResults = checkEmail(email)
     const passwordResults = checkPassword(password)
 
+    console.log("Email Results:", emailResults);
+    console.log("Password Results:", passwordResults);
+
     setEmailErrors(emailResults)
     setPasswordErrors(passwordResults)
 
     if (emailResults.length === 0 && passwordResults.length === 0) {
+      console.log("sending login request");
       baseApi
         .post("/api/auth/login", {
           email,
           password,
-        }, 
-        {headers : {"Authorization": ""}})
+        }) 
         .then((res) => {
+          console.log("Login response:", res);
           const { userId, token, role } = res.data
+          console.log("User ID:", userId);
+          console.log("Token:", token);
+          console.log("Role:", role);
           if (userId) {
             setItem("userAuth", {userId, token, role})
 
-            baseApi.defaults.headers.common['Authorization'] = `Bearer ${token}`
-
+           baseApi.defaults.headers.common['Authorization'] = `Bearer ${token}`
             navigate(`/posts`)
-    
             console.log("connexion au compte ok ")
           }
         })
         .catch((error) => {
+          console.error("Failed to connect to the account", error);
+  console.log("Error response data:", error.response.data);
+  console.log("Error response status:", error.response.status);
+  console.log("Error response headers:", error.response.headers);
           setAuthUserError("Utilisateur inconnu")
           console.error("Echec connection au compte", error)
         })

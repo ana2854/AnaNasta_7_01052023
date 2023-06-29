@@ -1,19 +1,15 @@
 import { Navigate, createBrowserRouter } from "react-router-dom"
-
-//import {Routes, route } from "react-router-dom"
-
 import { Login } from "./pages/Login"
 import { Register } from "./pages/Register"
 import PrivateRoutes from "./utils/PrivateRoutes"
 import { NavLayout } from "./nav/NavLayout"
 import { postListRoute } from "./pages/PostList"
 import { postRoute } from "./pages/Post"
+import { userProfileRoute } from "./pages/Profile"
 
 import ErrorPage from "./utils/ErrorPage"
 
-//import { Settings} from "./pages/Settings"
-
-//import { UserProfil } from './pages/UserProfil';
+import { Settings} from "./pages/Settings"
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +44,16 @@ export const router = createBrowserRouter([
                   { path: ":postId", ...postRoute },
                 ],
               },
+              {
+                path: "profile/:userId",
+                children: [{ index: true, ...userProfileRoute }],
+              },
+
+              {
+                path: "settings",
+                children: [{ index: true, element: <Settings/> }],
+              },
+               
 
               { path: "*", element: <h1>404 - Page Not Found</h1> },
             ],

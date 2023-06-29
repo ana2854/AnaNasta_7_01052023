@@ -164,3 +164,21 @@ a:hover:after {
   color: white;
   font-size: large;
 }
+
+.grille-posts {
+  border : 4px solid green;
+}
+
+.postCard {
+  border : 1px solid red;
+
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    display: flex;
+    flex-direction: column;
+  
+}
+.postCard-body {
+  flex-grow: 1;
+}

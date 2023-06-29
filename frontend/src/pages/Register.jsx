@@ -33,8 +33,7 @@ export function Register() {
           email,
           password,
         
-        },
-        {headers : {"Authorization": ""}})
+        })
         .then((response) => {
           console.log("Création de compte réussie!", response.data)
 

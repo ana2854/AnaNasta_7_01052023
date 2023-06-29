@@ -3,18 +3,18 @@ import { useLoaderData } from "react-router-dom"
 import { getOnePost } from "../api/posts"
 import { getOneUser } from "../api/user"
 import { Link } from "react-router-dom"
-import { getItem } from "../utils/LocalStorage"
+//import { getItem } from "../utils/LocalStorage"
 
 export function Post() {
   const { post, user } = useLoaderData()
 
-  const authToken = getItem("userAuth")
-  const userId = authToken ? authToken.userId : null
+  //const authToken = getItem("userAuth")
+  //const userId = authToken ? authToken.userId : null
 
   return (
     <>
       <span className="post-username">
-        Auteur: <Link to={`/profile/${userId}`}>{user.email}</Link>
+        Auteur: <Link to={`/profile/${post.userId}`}>{user.email}</Link>
       </span>
 
       <div className="post-content">{post.content}</div>

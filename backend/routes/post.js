@@ -13,18 +13,7 @@ const postCtrl = require('../controllers/post');
 const { adminCheck } = require('../middleware/adminCheck');
 
 
-/*
-// ces routes vont appliquer la fonction qui lui est associée
-//protection de la route en ajoutant le middleware auth avant d'autoriser l'envoi des requêtes
-//multer pour les images 
 
-router.post('/', auth, multer, postCtrl.createPost);
-router.get('/:id', auth, postCtrl.getOnePost);
-router.get('/', auth, postCtrl.getAllPosts);
-router.put('/:id', auth, multer, postCtrl.modifyPost);
-router.delete('/:id', auth, postCtrl.deletePost);
-//router.post('/:id/like', auth, postCtrl.evaluatePost);
-*/
 
 router.post('/', auth, multer, (req, res, next) => {
     console.log('route création post');
@@ -58,6 +47,11 @@ router.get('/:id', auth, (req, res, next) => {
     console.log('Supprimer un post');
     postCtrl.deletePost(req, res, next);
   });
+
+  router.get('/profile/:userId', auth, (req,res,next)=> {
+    console.log("accès aux posts d'un user specifique");
+    postCtrl.getUserPosts(req, res, next);
+  })
 
  
 

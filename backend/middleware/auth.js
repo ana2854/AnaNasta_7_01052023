@@ -14,15 +14,12 @@ module.exports = (req, res, next) => {
 
     req.userData = { userId: decodedToken.userId, role: decodedToken.role }
     console.log("auth middleware userId:", decodedToken.userId)
+    console.log("auth middleware token :", decodedToken.role)
 
     next()
   } catch (error) {
-    console.error("Auth Middleware: Error:", error)
-
-    if (error.name === "TokenExpiredError") {
-      res.status(401).json({ error: "TokenExpired" })
-    } else {
+    console.error("Auth Middleware: Error:", error);
       res.status(401).json({ error: "Unauthorized Request" })
     }
-  }
+  
 }

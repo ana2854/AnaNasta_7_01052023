@@ -26,11 +26,11 @@ export function NavLayout() {
               <li>
                 <Link to={`/posts`}>Posts</Link>
               </li>
+        <li>
+            <Link to={`/profile/${userId}`}>Profil</Link>
+        </li>
               <li>
-                <Link to={`/profile/${userId}`}>Profil</Link>
-              </li>
-              <li>
-                <Link to={`/account`}>Paramètres</Link>
+                <Link to={`/settings`}>Paramètres</Link>
               </li>
             </ul>
           </nav>

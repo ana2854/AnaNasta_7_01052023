@@ -6,6 +6,12 @@ export async function getAllPosts(options) {
   return res.data
 }
 
+//accès aux posts d'un user
+export async function getUserPosts(userId, options) {
+  const res = await baseApi.get(`api/post/profile/${userId}`, options)
+  return res.data
+}
+
 //accès à un post
 export async function getOnePost(postId, options) {
   const res = await baseApi.get(`api/post/${postId}`, options)
