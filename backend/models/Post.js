@@ -22,6 +22,7 @@ const Post = db.define(
     },
     content: {
       type: DataTypes.STRING(1000),
+      allowNull: true,
     },
 
     imageUrl: {

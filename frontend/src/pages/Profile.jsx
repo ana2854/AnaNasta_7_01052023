@@ -5,10 +5,13 @@ import { PostCard } from "../component/PostCard"
 
 export function Profile() {
   const { user, userPosts } = useLoaderData()
+  console.log("profil user loader", user)
+  console.log("profil userPosts loader", userPosts)
+
   return (
     <>
-      <h1>Profil utilisateur </h1>
-      <span className="username"> Auteur : {user.email} </span>
+      <h1>Profil utilisateur</h1>
+      <span className="username"> {user.email} </span>
 
       <div className="grille-posts">
         {userPosts.map((post) => (
@@ -19,13 +22,28 @@ export function Profile() {
   )
 }
 
+/*
 async function loader({ request: { signal }, params: { userId } }) {
   //Posts
   const userPosts = getUserPosts(userId, { signal })
   //user
   const user = getOneUser(userId, { signal })
 
+  console.log('Loaded user:', user); // <- Check that user data is correct
+  console.log('Loaded posts:', userPosts); // <- Check that posts data is correct
+
   return { userPosts: await userPosts, user: await user }
+}
+*/
+async function loader({ request: { signal }, params: { userId } }) {
+  const [userPosts, user] = await Promise.all([
+    getUserPosts(userId, { signal }),
+    getOneUser(userId, { signal }),
+  ])
+
+  console.log("Profil , userPost", userPosts)
+  console.log("Profil , user", user)
+  return { userPosts, user }
 }
 
 // eslint-disable-next-line react-refresh/only-export-components

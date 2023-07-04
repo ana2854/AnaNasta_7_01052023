@@ -5,10 +5,10 @@ import PrivateRoutes from "./utils/PrivateRoutes"
 import { NavLayout } from "./nav/NavLayout"
 import { postListRoute } from "./pages/PostList"
 import { postRoute } from "./pages/Post"
-import { userProfileRoute } from "./pages/Profile"
-
+import { editPostRoute } from "./pages/EditPost"
+import {userProfileRoute } from "./pages/Profile"
 import ErrorPage from "./utils/ErrorPage"
-
+import { newPostRoute } from "./pages/NewPost"
 import { Settings} from "./pages/Settings"
 
 export const router = createBrowserRouter([
@@ -41,7 +41,12 @@ export const router = createBrowserRouter([
                     index: true,
                     ...postListRoute,
                   },
-                  { path: ":postId", ...postRoute },
+                  { path: ":postId", children:[
+                    {index: true, ...postRoute},
+                    {path : "edit", ...editPostRoute}
+                  ]
+                },
+                  {path: "new", ...newPostRoute}
                 ],
               },
               {

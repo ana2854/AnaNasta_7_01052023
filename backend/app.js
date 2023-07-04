@@ -6,6 +6,8 @@ const helmet = require("helmet")
 const path = require("path")
 const app = express()
 
+//const cors = require('cors')
+
 //dotenv
 require("dotenv").config()
 
@@ -18,6 +20,8 @@ const Post = require("./models/Post")
 const userRoutes = require("./routes/user")
 
 const postRoutes = require("./routes/post")
+
+
 
 //TEST DB SEQUELIZE
 async function connectionToSequelizeDb() {
@@ -52,9 +56,19 @@ async function syncModels() {
 }
 syncModels()
 
+
+
 //gestion des datas entrantes (parsed)
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+
+/*
+app.use(cors({
+  origin : "http://127.0.0.1:8000",
+  methods : ["GET, POST, PUT, DELETE, PATCH, OPTIONS"]
+}))
+*/
+
 
 // CORS
 app.use((req, res, next) => {
@@ -67,8 +81,10 @@ app.use((req, res, next) => {
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, DELETE, PATCH, OPTIONS"
   )
+  //res.setHeader("Cross-Origin-Resource-Policy", "cross-origin")
   next()
 })
+
 
 app.use(helmet())
 
@@ -83,7 +99,15 @@ app.use("/api/auth", userRoutes)
 //Routes POSTS (message)
 app.use("/api/post", postRoutes)
 
+/*
 //transfert image
 app.use("/images", express.static(path.join(__dirname, "images")))
+*/
+
+app.use('/images', function(req, res, next) {
+  res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+  next();
+}, express.static(path.join(__dirname, 'images')));
+
 
 module.exports = app

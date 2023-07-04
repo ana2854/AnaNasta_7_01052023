@@ -4,7 +4,7 @@ import {
   ScrollRestoration,
   useNavigation,
 } from "react-router-dom"
-import ClipLoader from "react-spinners/ClipLoader"
+
 import "../styles.css"
 import { getItem } from "../utils/LocalStorage"
 
@@ -12,9 +12,10 @@ export function NavLayout() {
   const { state } = useNavigation()
   const isLoading = state === "loading"
 
-  const authToken = getItem("userAuth");
-  const userId = authToken ? authToken.userId : null;
-
+  
+  const authToken = getItem("userAuth")
+  const {userId} = authToken
+  
 
   return (
     <>
@@ -26,9 +27,9 @@ export function NavLayout() {
               <li>
                 <Link to={`/posts`}>Posts</Link>
               </li>
-        <li>
-            <Link to={`/profile/${userId}`}>Profil</Link>
-        </li>
+              <li>
+                <Link to={`/profile/${userId}`}>Profil</Link>
+              </li>
               <li>
                 <Link to={`/settings`}>Paramètres</Link>
               </li>
@@ -39,13 +40,13 @@ export function NavLayout() {
         {/*SPINNER */}
         {isLoading && (
           <div className="loading-spinner">
-            <ClipLoader color="red" loading={true} />
+            
           </div>
         )}
 
         {/*CONTAINER */}
         <div className={`container ${isLoading ? "loading" : ""}`}>
-          <h1>Welcome home (nav)</h1>
+          <h1></h1>
           <Outlet />
         </div>
       </div>

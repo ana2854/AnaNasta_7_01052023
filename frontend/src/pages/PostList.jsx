@@ -1,32 +1,40 @@
 // page d'accueil avec posts de tous les users
 
 import { useLoaderData } from "react-router-dom"
-import { getLatestPosts} from "../api/posts"
-
+import { getLatestPosts } from "../api/posts"
 import { PostCard } from "../component/PostCard"
-
+import { Link } from "react-router-dom"
 
 // eslint-disable-next-line react-refresh/only-export-components
 function PostList() {
-
-  
-  const posts = useLoaderData()
+  //const posts = useLoaderData()
+  const { posts } = useLoaderData()
 
   return (
     <>
-     <h1>Posts utilisateurs </h1>
-   
-      <div className="grille-posts">
-        {posts.map(post => (
-          <PostCard key={post.postId} {...post} />
-        ))}
+      <div className="wrapper-postList">
+        <h1>Posts utilisateurs </h1>
+
+        <div className="btn create">
+          <Link className="btn btn-outline" to="new">
+            Crée un post
+          </Link>
+        </div>
+
+        <div className="grille-posts">
+          {posts.map((post) => (
+            <PostCard key={post.postId} {...post} />
+          ))}
+        </div>
       </div>
     </>
   )
 }
 
-function loader({ request: { signal } }) {
-  return getLatestPosts({ signal })
+async function loader({ request: { signal } }) {
+  const posts = await getLatestPosts({ signal })
+  console.log("posts de la postList", posts)
+  return { posts }
 }
 
 export const postListRoute = {

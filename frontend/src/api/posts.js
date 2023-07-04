@@ -24,10 +24,18 @@ export async function getLatestPosts(options) {
   return res.data
 }
 
-//création post
-export async function createPost(data, options) {
-  const res = await baseApi.post(`api/post/`, data, options)
-  return res.data
+export async function createPost(data) {
+  return await baseApi.post("api/post/", data, {
+    headers : {
+          "Content-Type": "multipart/form-data", 
+          
+    }
+  }).then(res => res.data)
 }
 
+//supprime un post 
+export async function deletePost(postId, options) {
+  const res = await baseApi.delete(`api/post/${postId}`, options)
+  return res.data
 
+}

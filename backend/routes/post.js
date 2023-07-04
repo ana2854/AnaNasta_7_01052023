@@ -10,30 +10,30 @@ const multer = require('../middleware/multer-config')
 const router = express.Router();
 
 const postCtrl = require('../controllers/post');
-const { adminCheck } = require('../middleware/adminCheck');
+
 
 
 
 
 router.post('/', auth, multer, (req, res, next) => {
-    console.log('route création post');
+    console.log('création post');
     postCtrl.createPost(req, res, next);
   });
 
   router.get('/latest', auth, (req, res, next) => {
-    console.log('accès aux posts les plus récents');
+    console.log('posts récents');
     postCtrl.getLatestPosts(req, res, next);
   });
 
 
-router.put('/:id', auth, adminCheck, multer, (req, res, next) => {
+router.put('/:id', auth, multer, (req, res, next) => {
     console.log('Modifier un post');
     postCtrl.modifyPost(req, res, next);
   });
 
 
 router.get('/:id', auth, (req, res, next) => {
-    console.log('route accès à un post');
+    console.log('accès à un post');
     postCtrl.getOnePost(req, res, next);
   });
   
@@ -43,7 +43,7 @@ router.get('/:id', auth, (req, res, next) => {
   });
   
   
-  router.delete('/:id', auth, adminCheck, (req, res, next) => {
+  router.delete('/:id', auth, (req, res, next) => {
     console.log('Supprimer un post');
     postCtrl.deletePost(req, res, next);
   });

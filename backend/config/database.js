@@ -13,9 +13,8 @@ module.exports = new Sequelize(
   {
     host: process.env.DB_HOST,
     dialect: "mysql",
+    dialectOptions: {
+      timezone: "+02:00",
+    },
   }
 )
-
-
-
-
