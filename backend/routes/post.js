@@ -36,7 +36,24 @@ router.get('/:id', auth, (req, res, next) => {
     console.log('accès à un post');
     postCtrl.getOnePost(req, res, next);
   });
-  
+
+  router.post('/:id/like', auth, (req, res, next) => {
+    console.log('route fonction like');
+    postCtrl.likePost(req, res, next);
+  });
+
+  router.get('/:id/likeCounter', auth, (req, res, next)=> {
+    console.log("route counter ");
+    postCtrl.getLikes(req,res,next);
+  })
+
+  router.get('/:id/user-liked', auth, (req, res, next)=> {
+    console.log("user like post or not ");
+    postCtrl.userHasLiked(req,res,next);
+  })
+
+
+
   router.get('/', auth, (req, res, next) => {
     console.log('accéder aux posts des users');
     postCtrl.getAllPosts(req, res, next);
@@ -52,6 +69,8 @@ router.get('/:id', auth, (req, res, next) => {
     console.log("accès aux posts d'un user specifique");
     postCtrl.getUserPosts(req, res, next);
   })
+
+ 
 
  
 

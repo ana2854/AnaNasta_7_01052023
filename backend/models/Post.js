@@ -39,22 +39,7 @@ const Post = db.define(
       allowNull: false,
 
     },
-    likes: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-    },
-    dislikes: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-    },
-    usersLikes: {
-      type: DataTypes.STRING(255),
-      defaultValue: null,
-    },
-    usersDislikes: {
-      type: DataTypes.STRING(255),
-      defaultValue: null,
-    },
+   
   },
   {
     freezeTableName: true,

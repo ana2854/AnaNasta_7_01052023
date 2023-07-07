@@ -16,12 +16,11 @@ const db = require("./config/database")
 
 const User = require("./models/User")
 const Post = require("./models/Post")
+const Like = require("./models/Like")
 
 const userRoutes = require("./routes/user")
 
 const postRoutes = require("./routes/post")
-
-
 
 //TEST DB SEQUELIZE
 async function connectionToSequelizeDb() {
@@ -44,7 +43,7 @@ async function syncModels() {
     await User.sync()
     console.log("**Synchronisation des modèle&table USER OK**")
   } catch (error) {
-    console.log("**Erreur synchronisation modèle&table USER**", error)
+    console.log("Erreur synchronisation modèle&table USER", error)
   }
 
   try {
@@ -53,10 +52,15 @@ async function syncModels() {
   } catch (error) {
     console.log("Erreur synchronisation modèle&table POST", error)
   }
+
+  try {
+    await Like.sync()
+    console.log("**Synchronisation modèle&table Like ok**")
+  } catch (error) {
+    console.log("Erreur synchronisation modèle&table Like", error)
+  }
 }
 syncModels()
-
-
 
 //gestion des datas entrantes (parsed)
 app.use(express.urlencoded({ extended: true }))
@@ -69,7 +73,6 @@ app.use(cors({
 }))
 */
 
-
 // CORS
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*")
@@ -81,10 +84,9 @@ app.use((req, res, next) => {
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, DELETE, PATCH, OPTIONS"
   )
-  //res.setHeader("Cross-Origin-Resource-Policy", "cross-origin")
+
   next()
 })
-
 
 app.use(helmet())
 
@@ -99,15 +101,13 @@ app.use("/api/auth", userRoutes)
 //Routes POSTS (message)
 app.use("/api/post", postRoutes)
 
-/*
-//transfert image
-app.use("/images", express.static(path.join(__dirname, "images")))
-*/
-
-app.use('/images', function(req, res, next) {
-  res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
-  next();
-}, express.static(path.join(__dirname, 'images')));
-
+app.use(
+  "/images",
+  function (req, res, next) {
+    res.setHeader("Cross-Origin-Resource-Policy", "cross-origin")
+    next()
+  },
+  express.static(path.join(__dirname, "images"))
+)
 
 module.exports = app

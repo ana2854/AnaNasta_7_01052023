@@ -1,5 +1,8 @@
-import { Form, Link, redirect } from "react-router-dom"
+import {  redirect } from "react-router-dom"
 import { createPost } from "../api/posts"
+import { PostForm } from "../component/PostForm"
+
+
 
 function NewPost() {
   return (
@@ -8,27 +11,9 @@ function NewPost() {
       <div className="container">
         <div className="wrapper-form-newpost">
         <h1 className="page-title">Créez un post</h1>
-
-        <Form method="post" className="form-post" encType="multipart/form-data">
-          <div className="form-row">
-            <div className="form-group error">
-              <label htmlFor="imageUrl">Ajouter une image</label>
-              <input type="file" name="imageUrl" id="imageUrl" />
-            </div>
-          </div>
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="content">Contenu</label>
-              <textarea name="content" id="content" maxLength={1000}></textarea>
-            </div>
-          </div>
-          <div className="form-btn-row">
-            <Link className="btn action btn-outline" to="/posts">
-              Annuler
-            </Link>
-            <button className="btn action">Envoyer</button>
-          </div>
-        </Form>
+        
+        <PostForm/>
+       
         </div>
       </div>
     </>

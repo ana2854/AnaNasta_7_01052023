@@ -4,6 +4,8 @@ import { useLoaderData } from "react-router-dom"
 import { getLatestPosts } from "../api/posts"
 import { PostCard } from "../component/PostCard"
 import { Link } from "react-router-dom"
+import {FaPen} from "react-icons/fa6"
+
 
 // eslint-disable-next-line react-refresh/only-export-components
 function PostList() {
@@ -13,12 +15,13 @@ function PostList() {
   return (
     <>
       <div className="wrapper-postList">
-        <h1>Posts utilisateurs </h1>
-
-        <div className="btn create">
-          <Link className="btn btn-outline" to="new">
-            Crée un post
-          </Link>
+        <div className="postList-header">
+          <h1>Posts utilisateurs </h1>
+          <div className="btn create">
+            <Link className="btn btn-outline" to="new">
+             <FaPen/> Crée un post
+            </Link>
+          </div>
         </div>
 
         <div className="grille-posts">

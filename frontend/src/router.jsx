@@ -41,12 +41,13 @@ export const router = createBrowserRouter([
                     index: true,
                     ...postListRoute,
                   },
-                  { path: ":postId", children:[
-                    {index: true, ...postRoute},
-                    {path : "edit", ...editPostRoute}
-                  ]
-                },
-                  {path: "new", ...newPostRoute}
+                  { path: ":postId",
+                    children:[
+                        {index: true, ...postRoute},
+                        {path : "edit", ...editPostRoute},
+                        ]
+                  },
+                  {path: "new", ...newPostRoute},
                 ],
               },
               {

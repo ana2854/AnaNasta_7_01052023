@@ -33,6 +33,36 @@ export async function createPost(data) {
   }).then(res => res.data)
 }
 
+
+//modifier post 
+export async function modifyPost(id, data) {
+  return await baseApi.put(`api/post/${id}`, data, {
+    headers : {
+          "Content-Type": "multipart/form-data",
+    }
+  }).then(res => res.data)
+}
+
+//like post
+export async function likePost(postId, options) {
+  const res = await baseApi.post(`api/post/${postId}/like`, options)
+  return res.data
+}
+
+//get likes counter
+export async function getLikes(postId, options) {
+  const res = await baseApi.get(`api/post/${postId}/likeCounter`, options)
+  return res.data
+}
+
+//get like by user
+export async function userHasLiked(postId, options) {
+  const res = await baseApi.get(`api/post/${postId}/user-liked`, options)
+  return res.data
+}
+
+
+
 //supprime un post 
 export async function deletePost(postId, options) {
   const res = await baseApi.delete(`api/post/${postId}`, options)
