@@ -17,9 +17,9 @@ function PostList() {
       <div className="wrapper-postList">
         <div className="postList-header">
           <h1>Posts utilisateurs </h1>
-          <div className="btn create">
+          <div className="btn create" title="créez un post">
             <Link className="btn btn-outline" to="new">
-             <FaPen/> Crée un post
+             <FaPen/> Créer un post
             </Link>
           </div>
         </div>

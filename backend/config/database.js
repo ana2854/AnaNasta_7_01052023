@@ -13,8 +13,16 @@ module.exports = new Sequelize(
   {
     host: process.env.DB_HOST,
     dialect: "mysql",
+    timezone: "+02:00",
     dialectOptions: {
-      timezone: "+02:00",
+      useUTC: false, //ordonne a sequelize de se baser sur l'heure local d'sql
+      dateStrings: true,//retourne la date en format string et pas objet
+      typeCast: function (field, next) { 
+        if (field.type === 'DATETIME') {
+          return field.string()
+        }
+        return next()
+      },
     },
   }
 )

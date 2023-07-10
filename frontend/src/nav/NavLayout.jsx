@@ -8,6 +8,10 @@ import {
 import "../styles.css"
 import { getItem } from "../utils/LocalStorage"
 
+import { FaCircleUser} from "react-icons/fa6";
+import { FaHouse} from "react-icons/fa6";
+import { FaGear} from "react-icons/fa6";
+
 export function NavLayout() {
   const { state } = useNavigation()
   const isLoading = state === "loading"
@@ -25,13 +29,13 @@ export function NavLayout() {
             <div className="nav-title">Groupomania</div>
             <ul className="nav-list">
               <li>
-                <Link to={`/posts`}>Posts</Link>
+                <Link to={`/posts`} title="Posts"><FaHouse className="nav-icon"/>Posts</Link>
               </li>
               <li>
-                <Link to={`/profile/${userId}`}>Profil</Link>
+                <Link to={`/profile/${userId}`} title="Mon profil"> <FaCircleUser className="nav-icon"/>Profil</Link>
               </li>
               <li>
-                <Link to={`/settings`}>Paramètres</Link>
+                <Link to={`/settings`} title="Paramètres"><FaGear className="nav-icon"/>Paramètres</Link>
               </li>
             </ul>
           </nav>

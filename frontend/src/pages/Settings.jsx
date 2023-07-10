@@ -18,7 +18,7 @@ export function Settings() {
   return (
     <main>
       <div className="wrapper-settings">
-      <h1>Mon compte</h1>
+      <h1>Se déconnecter</h1>
       
       <button className="btn-logout" onClick={handleLogout}>Me déconnecter</button>
       </div>

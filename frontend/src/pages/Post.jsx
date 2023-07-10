@@ -8,8 +8,7 @@ import { deletePost } from "../api/posts"
 import { useEffect, useState } from "react"
 import { FaThumbsUp } from "react-icons/fa6"
 import { FaTrashCan } from "react-icons/fa6"
-import {FaPenToSquare} from "react-icons/fa6"
-
+import { FaPenToSquare } from "react-icons/fa6"
 
 export function Post() {
   const { post, user } = useLoaderData()
@@ -71,6 +70,15 @@ export function Post() {
   //supprimer un post
   async function handleDelete() {
     console.log("Delete button clicked")
+
+    if (
+      !window.confirm(
+        "êtes vous sûr(e) de vouloir supprimer cette publication ?"
+      )
+    ) {
+      return
+    }
+
     try {
       await deletePost(post.postId)
       navigate("/posts")
@@ -82,54 +90,65 @@ export function Post() {
   return (
     <>
       <div className="wrapper-one-post">
+        <div className="header-one-post">
+          <span className="post-username">
+            Auteur: <Link to={`/profile/${post.userId}`}>{user.email}</Link>
+          </span>
 
-      <div className="header-one-post">
-        <span className="post-username">
-          Auteur: <Link to={`/profile/${post.userId}`}>{user.email}</Link>
-        </span>
+          {console.log(
+            "permission pour modifier et supprimer le post: ",
+            post.userId === currentUser || admin
+          )}
+          {console.log("post file, postUserid", post.userId)}
 
-      
-        {console.log(
-          "permission pour modifier: ",
-          post.userId === currentUser || admin
-        )}
-        {(post.userId === currentUser || admin) && (
-          <Link className="btn modify" to="edit">
-          <FaPenToSquare/>  MODIFIER
-          </Link>
-        )}
+          {(post.userId === currentUser || admin) && (
+            <nav className="post-nav">
+              <div className="post-nav-menu">
+              <button
+                className="nav-menu-toggle"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <span className="ellipsis-icon">...</span>
+              </button>
+              <ul className="dropdown-menu" aria-hidden="true">
+                <li>
+                  {" "}
+                  <Link className="btn-modify" to="edit">
+                    <FaPenToSquare /> MODIFIER
+                  </Link>
+                </li>
 
-        {console.log(
-          "permission pour supprimer: ",
-          post.userId === currentUser || admin
-        )}
-        {console.log("post file, postUserid", post.userId)}
-        {(post.userId === currentUser || admin) && (
-          <button className="btn delete" onClick={() => handleDelete()}>
-            <FaTrashCan/> SUPPRIMER
-          </button>
-        )}
-
+                <li>
+                  {" "}
+                  <button className="btn-delete" onClick={() => handleDelete()}>
+                    <FaTrashCan /> SUPPRIMER
+                  </button>
+                </li>
+              </ul>
+              </div>
+            </nav>
+          )}
         </div>
 
-
-
-        {console.log("post file, image", post.imageUrl)}
-        {post.imageUrl ? (
-          <img className="post-img" src={post.imageUrl} />
-        ) : null}
+        <div className="post-header-img">
+          {console.log("post file, image", post.imageUrl)}
+          {post.imageUrl ? (
+            <img className="post-img" src={post.imageUrl} />
+          ) : null}
+        </div>
         <div className="post-content">{post.content}</div>
         <div className="post-date">Crée le: {post.dateCreated}</div>
-
-
-
-        <button className="btn like" onClick={() => handleLike()}>
-          <FaThumbsUp className={`like-icon ${liked ? "off" : "on"}`} />
-        </button>
-        <span>{count}</span>
-
-       
       </div>
+
+      <button
+        className="btn-like"
+        title={liked ? "j'aime" : "Je n'aime plus"}
+        onClick={() => handleLike()}
+      >
+        <FaThumbsUp className={`like-icon ${liked ? "off" : "on"}`} />
+      </button>
+      <span style={{ color: "#888" }}>{count} j&apos;aime</span>
     </>
   )
 }

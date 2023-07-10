@@ -9,19 +9,27 @@ export function PostCard({ postId, content, imageUrl }) {
   console.log("imageUrl:", imageUrl)
 
   return (
+    <>
     <div className="postCard">
       <div className="postCard-body">
-        {imageUrl ? (
+
+        <div className="postCard-header-img">
+       {imageUrl ? (
           <img className="postCard-img" src={imageUrl} alt="post image" />
         ) : null}
-        <div className="postCard-preview-text">{content}</div>
+
+        </div>
+        
+          <div className="postCard-preview-text">{content}</div>
+
       </div>
       
-      <div className="postCard-footer">
+      <div className="postCard-footer" title="Voir plus">
         <Link className="btn-view" to={`/posts/${postId}`}>
           Voir plus
         </Link>
       </div>
     </div>
+    </>
   )
 }
