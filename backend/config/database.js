@@ -15,7 +15,7 @@ module.exports = new Sequelize(
     dialect: "mysql",
     timezone: "+02:00",
     dialectOptions: {
-      useUTC: false, //ordonne a sequelize de se baser sur l'heure local d'sql
+     
       dateStrings: true,//retourne la date en format string et pas objet
       typeCast: function (field, next) { 
         if (field.type === 'DATETIME') {

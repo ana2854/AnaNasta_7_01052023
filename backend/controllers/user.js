@@ -3,7 +3,7 @@
 //package de cryptage
 const bcrypt = require("bcrypt")
 
-//importation model 
+//importation model
 const User = require("../models/User")
 
 //token package
@@ -39,7 +39,7 @@ exports.signup = (req, res, next) => {
     })
 }
 
-// Fonction se connecter 
+// Fonction se connecter
 exports.login = (req, res, next) => {
   User.findOne({ where: { email: req.body.email } })
     .then((user) => {
@@ -84,6 +84,8 @@ exports.getOneUser = (req, res, next) => {
     where: { userId: req.params.id },
   })
     .then((user) => {
+      const emailParts = user.email.split("@")
+      user.email = emailParts[0]
       res.status(200).json(user)
     })
     .catch((error) => {
@@ -92,3 +94,5 @@ exports.getOneUser = (req, res, next) => {
       })
     })
 }
+
+

@@ -10,7 +10,7 @@ function NewPost() {
       
       <div className="container">
         <div className="wrapper-form-newpost">
-        <h1 className="page-title">Créez un post</h1>
+        <h1 className="page-title">Créer un post</h1>
         
         <PostForm/>
        
@@ -40,26 +40,7 @@ async function action({ request, response }) {
   return redirect(`/posts/${post.postId.toString()}`)
 }
 
-/*
-async function action({ request, response }) {
-  const formData = await request.formData()
-  console.log("Form Data from newpost page:", formData)
 
-  const imageUrl = formData.get("imageUrl")
-  const content = formData.get("content")
-
-  if (!imageUrl && !content) {
-    return response.status(400).json({ error: "contenu vide" })
-  }
-
-  const post = await createPost(
-    { content, imageUrl },
-    { signal: request.signal }
-  )
-
-  return redirect(`/posts/${post.postId.toString()}`)
-}
-*/
 export const newPostRoute = {
   action,
   element: <NewPost />,

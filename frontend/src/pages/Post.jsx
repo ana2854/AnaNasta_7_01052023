@@ -9,6 +9,7 @@ import { useEffect, useState } from "react"
 import { FaThumbsUp } from "react-icons/fa6"
 import { FaTrashCan } from "react-icons/fa6"
 import { FaPenToSquare } from "react-icons/fa6"
+import { FaCircleUser } from "react-icons/fa6"
 
 export function Post() {
   const { post, user } = useLoaderData()
@@ -26,6 +27,12 @@ export function Post() {
   const [count, setCount] = useState(0)
 
   const [liked, setLiked] = useState()
+
+  const [showNavMenu, setShowNavMenu] = useState(false)
+
+  function toggleNavMenu() {
+    setShowNavMenu(!showNavMenu)
+  }
 
   useEffect(() => {
     async function fetchLikes() {
@@ -57,10 +64,10 @@ export function Post() {
       const response = await likePost(post.postId, user.userId)
       const storedLike = response.storedLike
 
-      // Toggle the liked state
+      // Toggle du like
       setLiked(!liked)
 
-      // Update the count based on the storedLike value
+      
       setCount((prevCount) => prevCount + (storedLike ? 1 : -1))
     } catch (error) {
       console.log(error)
@@ -92,7 +99,9 @@ export function Post() {
       <div className="wrapper-one-post">
         <div className="header-one-post">
           <span className="post-username">
-            Auteur: <Link to={`/profile/${post.userId}`}>{user.email}</Link>
+            <Link to={`/profile/${post.userId}`} title="profil utilisateur ">
+              <FaCircleUser /> {user.email}
+            </Link>
           </span>
 
           {console.log(
@@ -104,51 +113,70 @@ export function Post() {
           {(post.userId === currentUser || admin) && (
             <nav className="post-nav">
               <div className="post-nav-menu">
-              <button
-                className="nav-menu-toggle"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                <span className="ellipsis-icon">...</span>
-              </button>
-              <ul className="dropdown-menu" aria-hidden="true">
-                <li>
-                  {" "}
-                  <Link className="btn-modify" to="edit">
-                    <FaPenToSquare /> MODIFIER
-                  </Link>
-                </li>
+                <button
+                  className="nav-menu-toggle"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  onClick={toggleNavMenu}
+                >
+                  <span className="ellipsis-icon">...</span>
+                </button>
+                <ul
+                  className={`dropdown-menu ${showNavMenu ? "show" : ""}`}
+                  aria-hidden="true"
+                >
+                  <li>
+                    {" "}
+                    <Link className="btn-modify" to="edit">
+                      <FaPenToSquare /> MODIFIER
+                    </Link>
+                  </li>
 
-                <li>
-                  {" "}
-                  <button className="btn-delete" onClick={() => handleDelete()}>
-                    <FaTrashCan /> SUPPRIMER
-                  </button>
-                </li>
-              </ul>
+                  <li>
+                    {" "}
+                    <button
+                      className="btn-delete"
+                      onClick={() => handleDelete()}
+                    >
+                      <FaTrashCan /> SUPPRIMER
+                    </button>
+                  </li>
+                </ul>
               </div>
             </nav>
           )}
         </div>
 
-        <div className="post-header-img">
+        <div className="container-post-img">
           {console.log("post file, image", post.imageUrl)}
           {post.imageUrl ? (
             <img className="post-img" src={post.imageUrl} />
           ) : null}
         </div>
-        <div className="post-content">{post.content}</div>
-        <div className="post-date">Crée le: {post.dateCreated}</div>
+
+        {post.content ? (<div className="post-content">{post.content}</div>) : null}
+
+        <div className="post-footer">
+          <div className="post-date">Crée le: {post.dateCreated} </div>
+
+          <button
+          className="btn-like"
+          title={liked ? "j'aime" : "Je n'aime plus"}
+          onClick={() => handleLike()}
+        >
+          <FaThumbsUp className={`like-icon ${liked ? "off" : "on"}`} />
+        </button>
+
+
+          </div>
+
+       
+        <span className="count-likes" style={{ color: "#888" }}>{count} j&apos;aime</span>
+      
+
       </div>
 
-      <button
-        className="btn-like"
-        title={liked ? "j'aime" : "Je n'aime plus"}
-        onClick={() => handleLike()}
-      >
-        <FaThumbsUp className={`like-icon ${liked ? "off" : "on"}`} />
-      </button>
-      <span style={{ color: "#888" }}>{count} j&apos;aime</span>
+
     </>
   )
 }

@@ -2,6 +2,7 @@ import { getOneUser } from "../api/user"
 import { getUserPosts } from "../api/posts"
 import { useLoaderData } from "react-router-dom"
 import { PostCard } from "../component/PostCard"
+import { FaUser } from "react-icons/fa6"
 
 export function Profile() {
   const { user, userPosts } = useLoaderData()
@@ -10,8 +11,8 @@ export function Profile() {
 
   return (
     <>
-      <h1>Profil utilisateur</h1>
-      <span className="username"> {user.email} </span>
+      <h1>Mon profil </h1>
+      <h2 className="profil-username"><FaUser/> {user.email}</h2>  
 
       <div className="grille-posts">
         {userPosts.map((post) => (

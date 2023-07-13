@@ -10,26 +10,25 @@ export function PostCard({ postId, content, imageUrl }) {
 
   return (
     <>
-    <div className="postCard">
-      <div className="postCard-body">
+      <div className="postCard">
+        <div className="postCard-body">
+          <div className="postCard-header-img">
+            {imageUrl ? (
+              <img className="postCard-img" src={imageUrl} alt="post image" />
+            ) : null}
+          </div>
 
-        <div className="postCard-header-img">
-       {imageUrl ? (
-          <img className="postCard-img" src={imageUrl} alt="post image" />
-        ) : null}
-
+          {content ? (
+            <div className="postCard-preview-text">{content}</div>
+          ) : null}
         </div>
-        
-          <div className="postCard-preview-text">{content}</div>
 
+        <div className="postCard-footer" title="Voir plus">
+          <Link className="btn-view" to={`/posts/${postId}`}>
+            Voir plus
+          </Link>
+        </div>
       </div>
-      
-      <div className="postCard-footer" title="Voir plus">
-        <Link className="btn-view" to={`/posts/${postId}`}>
-          Voir plus
-        </Link>
-      </div>
-    </div>
     </>
   )
 }

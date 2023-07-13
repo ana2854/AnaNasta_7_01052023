@@ -15,13 +15,13 @@ function PostList() {
   return (
     <>
       <div className="wrapper-postList">
-        <div className="postList-header">
+        < div className="postList-header">
           <h1>Posts utilisateurs </h1>
-          <div className="btn create" title="créez un post">
-            <Link className="btn btn-outline" to="new">
+         
+            <Link className="btn-create" title="créer un post" to="new">
              <FaPen/> Créer un post
             </Link>
-          </div>
+          
         </div>
 
         <div className="grille-posts">

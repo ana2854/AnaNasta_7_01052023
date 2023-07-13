@@ -25,22 +25,24 @@ export async function getLatestPosts(options) {
 }
 
 export async function createPost(data) {
-  return await baseApi.post("api/post/", data, {
-    headers : {
-          "Content-Type": "multipart/form-data", 
-          
-    }
-  }).then(res => res.data)
+  return await baseApi
+    .post("api/post/", data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then((res) => res.data)
 }
 
-
-//modifier post 
+//modifier post
 export async function modifyPost(id, data) {
-  return await baseApi.put(`api/post/${id}`, data, {
-    headers : {
-          "Content-Type": "multipart/form-data",
-    }
-  }).then(res => res.data)
+  return await baseApi
+    .put(`api/post/${id}`, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then((res) => res.data)
 }
 
 //like post
@@ -61,11 +63,8 @@ export async function userHasLiked(postId, options) {
   return res.data
 }
 
-
-
-//supprime un post 
+//supprime un post
 export async function deletePost(postId, options) {
   const res = await baseApi.delete(`api/post/${postId}`, options)
   return res.data
-
 }

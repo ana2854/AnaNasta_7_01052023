@@ -42,7 +42,9 @@ exports.createPost = (req, res, next) => {
   post
     .save()
     .then((savedPost) => {
-      const { dateCreated, content, imageUrl, userId, postId } = savedPost
+      const { dateCreated, content, imageUrl, userId, postId } = 
+      
+      
 
       res.status(201).json({
         date: dateCreated,
@@ -164,7 +166,7 @@ exports.getLatestPosts = (req, res, next) => {
 
 exports.deletePost = async (req, res, next) => {
   try {
-    console.log("Starting delete process")
+    console.log("Start delete post")
     const post = await Post.findOne({ where: { postId: req.params.id } })
     console.log("Post found: ", post)
     console.log("post id ", req.params.id)

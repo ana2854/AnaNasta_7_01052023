@@ -2,15 +2,19 @@ import {
   Link,
   Outlet,
   ScrollRestoration,
+ 
   useNavigation,
 } from "react-router-dom"
 
 import "../styles.css"
 import { getItem } from "../utils/LocalStorage"
+//import { getCurrentUser } from "../api/user";
 
 import { FaCircleUser} from "react-icons/fa6";
 import { FaHouse} from "react-icons/fa6";
 import { FaGear} from "react-icons/fa6";
+//import { useEffect} from "react";
+//import { useEffect, useState } from "react";
 
 export function NavLayout() {
   const { state } = useNavigation()
@@ -19,6 +23,10 @@ export function NavLayout() {
   
   const authToken = getItem("userAuth")
   const {userId} = authToken
+
+ 
+
+ 
   
 
   return (
@@ -26,7 +34,9 @@ export function NavLayout() {
       <div className="wrapper-content">
         <header className="header-nav">
           <nav className="top-nav">
-            <div className="nav-title">Groupomania</div>
+           
+          <div>Groupomania</div>
+            
             <ul className="nav-list">
               <li>
                 <Link to={`/posts`} title="Posts"><FaHouse className="nav-icon"/>Posts</Link>
@@ -50,10 +60,15 @@ export function NavLayout() {
 
         {/*CONTAINER */}
         <div className={`container ${isLoading ? "loading" : ""}`}>
-          <h1></h1>
           <Outlet />
         </div>
       </div>
     </>
   )
 }
+
+
+
+
+
+
