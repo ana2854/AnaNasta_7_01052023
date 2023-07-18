@@ -127,10 +127,15 @@ input[type="password"] {
   font-weight: bold;
 }
 
+span .link-access {
+  display: flex;
+  justify-content: center;
+  align-items:center;
+}
+
 .link-access {
   color: #07394c;
   font-weight: bold;
-  background-color: lightgray;
   padding: 1.5%;
   border-radius: 5px;
 }
