@@ -3,7 +3,6 @@ import logo from "../logo/groupomania-logoBW.svg"
 import "../styles.css"
 import { checkEmail, checkPassword } from "../validation"
 import axios from "axios"
-import { baseApi } from "../api/base"
 import { Link } from "react-router-dom"
 import { setItem } from "../utils/LocalStorage"
 import { useNavigate } from "react-router-dom"
@@ -47,8 +46,6 @@ export function Login() {
           console.log("Role:", role)
           if (token) {
             setItem("userAuth", { userId, token, role })
-
-            baseApi.defaults.headers.common["Authorization"] = `Bearer ${token}`
             navigate(`/posts`)
             console.log("connexion au compte ok ")
           }
@@ -67,7 +64,7 @@ export function Login() {
   return (
     <>
       <main className="main-form">
-        <h1 className="title-form">S identifier </h1>
+        <h1 className="title-form">S&apos;identifier </h1>
         <form onSubmit={onSubmit} className="form">
           <img src={logo} className="logo-groupomania"></img>
 
@@ -129,11 +126,11 @@ export function Login() {
           )}
 
           <button className="btn access" type="submit">
-            S identifier
+            S&apos;identifier
           </button>
 
-          <span>
-            <Link to="/register">CREE MON COMPTE </Link>
+          <span >
+            <Link to="/register" className="link-access">CREER MON COMPTE </Link>
           </span>
         </form>
       </main>

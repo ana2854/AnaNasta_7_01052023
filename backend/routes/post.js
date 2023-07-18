@@ -16,11 +16,13 @@ const postCtrl = require('../controllers/post');
 
 
 router.post('/', auth, multer, (req, res, next) => {
+  console.log("création post , userData.userId", req.userData.userId);
     console.log('création post');
     postCtrl.createPost(req, res, next);
   });
 
   router.get('/latest', auth, (req, res, next) => {
+    console.log("posts récents userData", req.userData.userId);
     console.log('posts récents');
     postCtrl.getLatestPosts(req, res, next);
   });

@@ -1,5 +1,5 @@
 import { Form, Link } from "react-router-dom"
-import {FaPaperPlane} from "react-icons/fa6"
+import {FaCircleXmark, FaPaperPlane} from "react-icons/fa6"
 
 export function PostForm({defaultValues = {} }) {
   return (
@@ -18,10 +18,10 @@ export function PostForm({defaultValues = {} }) {
             </div>
           </div>
           <div className="form-btn-row">
-            <Link className="btn action btn-outline" to="/posts" title="Annuler et revenir aux posts">
-              Annuler
+            <Link className="btn action" to="/posts" title="Annuler et revenir aux posts">
+             <FaCircleXmark/> Annuler
             </Link>
-            <button className="btn action" title="Envoyer le post"><FaPaperPlane/>Envoyer</button>
+            <button className="btn action" title="Envoyer le post"><FaPaperPlane/> Envoyer</button>
           </div>
         </Form>
   )

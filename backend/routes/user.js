@@ -21,14 +21,7 @@ router.post("/login", (req, res) => {
   userCtrl.login(req, res)
 })
 
-/*
-//accès à un utilisateur logged in
-router.get("/current", (req, res, next) => {
-  console.log('req.userData:', req.userData);
-  userCtrl.getCurrentUser(req, res, next);
-});
 
-*/
 //accéder à 1 utilisateur
 router.get("/:id", (req, res) => {
   console.log('req.userData:', req.userData);

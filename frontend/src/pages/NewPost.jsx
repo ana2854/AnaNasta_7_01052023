@@ -1,19 +1,15 @@
-import {  redirect } from "react-router-dom"
+import { redirect } from "react-router-dom"
 import { createPost } from "../api/posts"
 import { PostForm } from "../component/PostForm"
-
-
 
 function NewPost() {
   return (
     <>
-      
-      <div className="container">
+      <div className="container-post">
         <div className="wrapper-form-newpost">
-        <h1 className="page-title">Créer un post</h1>
-        
-        <PostForm/>
-       
+          <h1 className="page-title">Créer un post</h1>
+
+          <PostForm />
         </div>
       </div>
     </>
@@ -39,7 +35,6 @@ async function action({ request, response }) {
 
   return redirect(`/posts/${post.postId.toString()}`)
 }
-
 
 export const newPostRoute = {
   action,

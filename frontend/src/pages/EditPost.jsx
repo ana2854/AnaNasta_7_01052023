@@ -7,11 +7,9 @@ function EditPost() {
   const { post } = useLoaderData()
   console.log(post)
 
-  
-
   return (
     <>
-      <div className="container">
+      <div className="container-post">
         <div className="wrapper-form-newpost">
           <h1 className="page-title">Modifier mon post</h1>
 
@@ -27,34 +25,33 @@ async function loader({ request: { signal }, params: { postId } }) {
   return { post: await post }
 }
 
-async function action({ request, response, params : {postId} }) {
-
+async function action({ request, response, params: { postId } }) {
   const authToken = getItem("userAuth")
   const { userId: currentUser, role } = authToken
   const admin = role === "admin"
 
   const post = await getOnePost(postId, { signal: request.signal })
 
-  if (post.userId === currentUser || admin ) {
-      const formData = await request.formData()
-      console.log("Form Data de la page modifier:", formData)
+  if (post.userId === currentUser || admin) {
+    const formData = await request.formData()
+    console.log("Form Data de la page modifier:", formData)
 
-      const imageFile = formData.get("imageUrl")
-      const content = formData.get("content")
+    const imageFile = formData.get("imageUrl")
+    const content = formData.get("content")
 
-        if (!imageFile && !content) {
-          return response.status(400).json({ error: "contenu vide" })
-        }
+    if (!imageFile && !content) {
+      return response.status(400).json({ error: "contenu vide" })
+    }
 
-      const formDataToSend = new FormData()
-      formDataToSend.append("imageUrl", imageFile)
-      formDataToSend.append("content", content)
+    const formDataToSend = new FormData()
+    formDataToSend.append("imageUrl", imageFile)
+    formDataToSend.append("content", content)
 
-      const post = await modifyPost(
-        postId, 
-        formDataToSend, { signal: request.signal })
+    const post = await modifyPost(postId, formDataToSend, {
+      signal: request.signal,
+    })
 
-      return redirect(`/posts/${post.postId}`)
+    return redirect(`/posts/${post.postId}`)
   }
 }
 

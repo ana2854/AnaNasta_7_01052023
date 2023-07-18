@@ -60,7 +60,7 @@ exports.login = (req, res, next) => {
             process.env.SECRETKEY,
             { expiresIn: "24h" }
           )
-          console.log("Generated token in the user login function:", token)
+          console.log("Token généré dans la fonction login function:", token)
           res.status(200).json({
             userId: user.userId,
             token: token,
@@ -78,7 +78,6 @@ exports.login = (req, res, next) => {
     })
 }
 
-
 exports.getOneUser = (req, res, next) => {
   User.findOne({
     where: { userId: req.params.id },
@@ -94,5 +93,3 @@ exports.getOneUser = (req, res, next) => {
       })
     })
 }
-
-

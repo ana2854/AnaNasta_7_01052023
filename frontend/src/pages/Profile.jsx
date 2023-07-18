@@ -11,13 +11,17 @@ export function Profile() {
 
   return (
     <>
-      <h1>Mon profil </h1>
-      <h2 className="profil-username"><FaUser/> {user.email}</h2>  
+      <div className="wrapper-profile">
+        <h1>Mon profil </h1>
+        <h2 className="profil-username">
+          <FaUser /> {user.email}
+        </h2>
 
-      <div className="grille-posts">
-        {userPosts.map((post) => (
-          <PostCard key={post.postId} {...post} />
-        ))}
+        <div className="grille-posts">
+          {userPosts.map((post) => (
+            <PostCard key={post.postId} {...post} />
+          ))}
+        </div>
       </div>
     </>
   )

@@ -19,7 +19,6 @@ export function checkPassword(password) {
     errors.push("Champs obligatoire")
   }
 
-
   if (password.length < 5) {
     errors.push("Veuillez saisir au moins 5 caractères")
   }

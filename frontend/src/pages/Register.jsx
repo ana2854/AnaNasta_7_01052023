@@ -110,11 +110,9 @@ export function Register() {
             Créer un compte
           </button>
 
-          <span>
-            <Link to="/login">S IDENTIFIER </Link>
+          <span >
+            <Link to="/login" className="link-access">S&apos;IDENTIFIER </Link>
           </span>
-
-
         </form>
       </main>
     </>

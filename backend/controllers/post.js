@@ -42,9 +42,7 @@ exports.createPost = (req, res, next) => {
   post
     .save()
     .then((savedPost) => {
-      const { dateCreated, content, imageUrl, userId, postId } = 
-      
-      
+      const { dateCreated, content, imageUrl, userId, postId } = savedPost
 
       res.status(201).json({
         date: dateCreated,
@@ -166,13 +164,13 @@ exports.getLatestPosts = (req, res, next) => {
 
 exports.deletePost = async (req, res, next) => {
   try {
-    console.log("Start delete post")
+    console.log("fonction delete déclenchée")
     const post = await Post.findOne({ where: { postId: req.params.id } })
     console.log("Post found: ", post)
     console.log("post id ", req.params.id)
 
     if (!post) {
-      console.log("Post not found")
+      console.log("Post non trouvé")
       return res.status(404).json({ error: "Post non trouvé" })
     }
 
@@ -187,18 +185,18 @@ exports.deletePost = async (req, res, next) => {
     console.log("delete function, post.userId", post.userId)
     if (req.userData.userId === post.userId || req.userData.role === "admin") {
       if (post.imageUrl) {
-        console.log("Deleting post with image")
+        console.log("suppression post avec image")
         const filename = post.imageUrl.split("/images/")[1]
 
         fs.unlink(`images/${filename}`, async (err) => {
           if (err) {
-            console.error("Error deleting image file: ", err)
+            console.error("erreur suppression image: ", err)
             return res.status(500).json({ error: err })
           }
 
           try {
             await Post.destroy({ where: { postId: req.params.id } })
-            console.log("Post and image deleted")
+            console.log("Post & image supprimés !")
             res.status(200).json({ message: "Post & image supprimés !" })
           } catch (error) {
             console.error("Error deleting post: ", error)
@@ -206,18 +204,18 @@ exports.deletePost = async (req, res, next) => {
           }
         })
       } else {
-        console.log("Deleting post without image")
+        console.log("suppression post sans image ")
         try {
           await Post.destroy({ where: { postId: req.params.id } })
-          console.log("Post deleted")
+          console.log("Post supprimé")
           res.status(200).json({ message: "Post supprimé !" })
         } catch (error) {
-          console.error("Error deleting post: ", error)
+          console.error("Erreur suppression post: ", error)
           res.status(400).json({ error })
         }
       }
     } else {
-      console.log("Unauthorized delete attempt")
+      console.log("suppression non-autorisé")
       res.status(403).json({ error: "Non-autorisé" })
     }
   } catch (error) {
@@ -245,10 +243,10 @@ exports.getUserPosts = (req, res, next) => {
 exports.likePost = async (req, res) => {
   const { userId } = req.userData
   console.log("like function, userId", userId)
-  const postId  = req.params.id
+  const postId = req.params.id
   console.log("like function , postid", postId)
 
-  const post = await Post.findOne({ where: { postId} })
+  const post = await Post.findOne({ where: { postId } })
   console.log("like function, post", post)
 
   if (!post) {
@@ -256,15 +254,15 @@ exports.likePost = async (req, res) => {
   }
 
   const like = await Like.findOne({ where: { userId, postId } })
-  
+
   if (like) {
     //annule le like déjà présent
     await like.destroy()
-    res.json({storedLike: false })
+    res.json({ storedLike: false })
   } else {
     // création d'un like si non existant
     await Like.create({ userId, postId })
-    res.json({storedLike: true})
+    res.json({ storedLike: true })
   }
 }
 
@@ -273,28 +271,25 @@ exports.getLikes = async (req, res) => {
   const postId = req.params.id
 
   try {
-    const counter = await  Like.count({ where: { postId } })
+    const counter = await Like.count({ where: { postId } })
     res.status(200).json({ counter })
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
 }
 
-exports.userHasLiked = async (req, res,next) => {
+exports.userHasLiked = async (req, res, next) => {
   const { userId } = req.userData
   console.log("like function, userId", userId)
-  const postId  = req.params.id
+  const postId = req.params.id
   console.log("like function , postid", postId)
 
   const like = await Like.findOne({ where: { userId, postId } })
-  
+
   if (like) {
-   
-    res.json({userHasLiked:false})
+    res.json({ userHasLiked: false })
   } else {
-    
-    res.json({userHasLiked:true})
+    res.json({ userHasLiked: true })
   }
 }
-
 

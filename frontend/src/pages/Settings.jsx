@@ -1,31 +1,33 @@
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { FaArrowRightFromBracket } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom"
+import { FaArrowRightFromBracket } from "react-icons/fa6"
+import { baseApi } from "../api/base"
 
 export function Settings() {
-  const navigate = useNavigate();
-  
+  const navigate = useNavigate()
+
   // se déconnecter
   function handleLogout() {
     //effacer données local storage
-    localStorage.removeItem('userAuth');
+    localStorage.removeItem("userAuth")
 
-    axios.defaults.headers.common["Authorization"] = null;
+    baseApi.defaults.headers.common["Authorization"] = null
 
     // rediriger vers la page login
-    navigate('/login');
+    navigate("/login")
   }
 
   return (
     <main>
       <div className="wrapper-settings">
-      <h1>Paramètres</h1>
-      <h2>Déconnexion</h2>
-      
-      <button className="btn-logout" onClick={handleLogout}> <FaArrowRightFromBracket/>Me déconnecter</button>
+        <h1>Paramètres</h1>
+        
+        <div className="content-settings">
+          <button className="btn-logout" onClick={handleLogout}>
+            {" "}
+            <FaArrowRightFromBracket /> <span>Me déconnecter</span> 
+          </button>
+        </div>
       </div>
     </main>
-  );
+  )
 }
-
- 

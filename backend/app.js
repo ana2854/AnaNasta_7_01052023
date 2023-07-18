@@ -6,8 +6,6 @@ const helmet = require("helmet")
 const path = require("path")
 const app = express()
 
-//const cors = require('cors')
-
 //dotenv
 require("dotenv").config()
 
@@ -65,13 +63,6 @@ syncModels()
 //gestion des datas entrantes (parsed)
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
-
-/*
-app.use(cors({
-  origin : "http://127.0.0.1:8000",
-  methods : ["GET, POST, PUT, DELETE, PATCH, OPTIONS"]
-}))
-*/
 
 // CORS
 app.use((req, res, next) => {

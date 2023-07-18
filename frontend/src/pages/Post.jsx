@@ -67,7 +67,6 @@ export function Post() {
       // Toggle du like
       setLiked(!liked)
 
-      
       setCount((prevCount) => prevCount + (storedLike ? 1 : -1))
     } catch (error) {
       console.log(error)
@@ -128,7 +127,7 @@ export function Post() {
                   <li>
                     {" "}
                     <Link className="btn-modify" to="edit">
-                      <FaPenToSquare /> MODIFIER
+                      <FaPenToSquare /> Modifier
                     </Link>
                   </li>
 
@@ -138,7 +137,7 @@ export function Post() {
                       className="btn-delete"
                       onClick={() => handleDelete()}
                     >
-                      <FaTrashCan /> SUPPRIMER
+                      <FaTrashCan /> Supprimer
                     </button>
                   </li>
                 </ul>
@@ -154,29 +153,26 @@ export function Post() {
           ) : null}
         </div>
 
-        {post.content ? (<div className="post-content">{post.content}</div>) : null}
+        {post.content ? (
+          <div className="post-content">{post.content}</div>
+        ) : null}
 
         <div className="post-footer">
           <div className="post-date">Crée le: {post.dateCreated} </div>
 
           <button
-          className="btn-like"
-          title={liked ? "j'aime" : "Je n'aime plus"}
-          onClick={() => handleLike()}
-        >
-          <FaThumbsUp className={`like-icon ${liked ? "off" : "on"}`} />
-        </button>
+            className="btn-like"
+            title={liked ? "j'aime" : "Je n'aime plus"}
+            onClick={() => handleLike()}
+          >
+            <FaThumbsUp className={`like-icon ${liked ? "off" : "on"}`} />
+          </button>
+        </div>
 
-
-          </div>
-
-       
-        <span className="count-likes" style={{ color: "#888" }}>{count} j&apos;aime</span>
-      
-
+        <span className="count-likes" style={{ color: "#888" }}>
+          {count} j&apos;aime
+        </span>
       </div>
-
-
     </>
   )
 }
