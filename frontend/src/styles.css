@@ -13,8 +13,6 @@ body {
   width: 99%;
   height: auto;
   margin: auto;
-
-  border: 3px solid yellow;
 }
 
 .wrapper-postList {
@@ -32,10 +30,8 @@ body {
 .wrapper-form-newpost {
   width: 90%;
   height: auto;
- 
-  padding: 20px;
 
-  border: 2px solid grey;
+  padding: 20px;
 }
 
 .wrapper-one-post {
@@ -264,8 +260,6 @@ a {
   border-radius: 0.5rem;
   margin-bottom: 1rem;
   z-index: 10000;
-
-  border: 3px solid red;
 }
 
 .top-nav .nav-icon,
@@ -294,12 +288,10 @@ a {
 }
 
 .grille-posts {
-  /*border: 4px solid green;*/
   padding-top: 15px;
 }
 
 .postCard {
-  /*border: 1px solid red;*/
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
   background: white;
@@ -320,8 +312,6 @@ a {
 
   border-radius: 1rem 1rem 0 0;
   flex-grow: 1;
-
-  /*border: 3px solid royalblue;*/
 }
 
 .postCard-preview-text {
@@ -343,8 +333,6 @@ a {
   width: 100%;
   object-fit: cover;
   border-radius: 1rem 1rem 0 0;
-
-  /*border:3px solid yellow;*/
 }
 
 .postCard-footer {
@@ -636,9 +624,8 @@ a {
 }
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
- .btn-create {
-  height: max-content;
-  padding: 1rem;
- }
+  .btn-create {
+    height: max-content;
+    padding: 1rem;
+  }
 }
-
