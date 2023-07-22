@@ -5,14 +5,11 @@ import { baseApi } from "../api/base"
 export function Settings() {
   const navigate = useNavigate()
 
-  // se déconnecter
   function handleLogout() {
-    //effacer données local storage
+
     localStorage.removeItem("userAuth")
 
     baseApi.defaults.headers.common["Authorization"] = null
-
-    // rediriger vers la page login
     navigate("/login")
   }
 

@@ -7,6 +7,9 @@ const router = express.Router()
 //on associe le controleur qui est associé aux differentes routes
 const userCtrl = require("../controllers/user")
 
+//middleware authentification
+const auth = require('../middleware/auth')
+
 // S'inscrire
 router.post("/signup", (req, res) => {
   console.log("accès à la route Signup")
@@ -23,8 +26,8 @@ router.post("/login", (req, res) => {
 
 
 //accéder à 1 utilisateur
-router.get("/:id", (req, res) => {
-  console.log('req.userData:', req.userData);
+router.get("/:id", auth, (req, res) => {
+  console.log('accès à un user , req.userData:', req.userData);
   console.log("route accès à un utilisateur spécifique")
   userCtrl.getOneUser(req, res)
 })

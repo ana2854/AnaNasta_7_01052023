@@ -6,9 +6,9 @@ import { PostCard } from "../component/PostCard"
 import { Link } from "react-router-dom"
 import { FaPen } from "react-icons/fa6"
 
-// eslint-disable-next-line react-refresh/only-export-components
+
 function PostList() {
-  //const posts = useLoaderData()
+  
   const { posts } = useLoaderData()
 
   return (
@@ -17,14 +17,14 @@ function PostList() {
         <div className="postList-header">
           <h1>Posts utilisateurs </h1>
 
-          <Link className="btn-create" title="créer un post" to="new">
-            <FaPen /> Créer un post
+          <Link className="btn-create" aria-label="créer un post" to="new">
+            <FaPen aria-label="true" /> Créer un post
           </Link>
         </div>
 
         <div className="grille-posts">
           {posts.map((post) => (
-            <PostCard key={post.postId} {...post} />
+            <PostCard key={post.postId} aria-label={`Post de ${post.username}`}   {...post} />
           ))}
         </div>
       </div>

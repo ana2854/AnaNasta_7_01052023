@@ -292,6 +292,13 @@ a {
   font-size: large;
 }
 
+
+
+img.nav-logo-layout {
+  filter: invert();
+
+}
+
 .grille-posts {
   padding-top: 15px;
 }
@@ -330,7 +337,7 @@ a {
   width: 100%;
   box-sizing: border-box;
   line-height: 1.5;
-  text-align: justify;
+  text-align: left;
 }
 
 .postCard-header-img,
@@ -451,6 +458,8 @@ a {
   margin-bottom: 10px;
 }
 
+
+
 .edit-img {
   width: 40%;
   height: auto;
@@ -481,9 +490,10 @@ a {
   margin-right: 1.5rem;
 }
 
-.top-nav-title {
-  font-size: large;
-  color: white;
+.top-nav-logo {
+ font-size: larger;
+  color: whitesmoke;
+  width: 15%;
 }
 
 .post-nav-menu {
@@ -514,7 +524,6 @@ a {
 .count-likes {
   text-align: right;
   padding-bottom: 15px;
-
   display: block;
   margin: 1em;
 }
@@ -523,16 +532,16 @@ a {
   margin: 2% 0;
   line-height: 1.5;
   padding: 18px 15px 10px 15px;
-  text-align: justify;
+  text-align: left;
   font-size: large;
   width: 100%;
 }
 
 .post-date {
-  color: #888;
+  color: #656464;
   line-height: 1.5;
   padding: 18px 15px 10px 15px;
-  text-align: justify;
+  text-align: left;
 }
 
 .like-icon {
@@ -569,8 +578,17 @@ a {
 
 @media screen and (max-width: 767px) {
   .body {
-    font-size: 0.7rem;
+    font-size: 0.6rem;
   }
+
+ .post-content {
+  font-size: medium;
+ }
+
+ .btn-delete,
+.btn-modify {
+  font-size: medium;
+}
 
   .wrapper-form-newpost {
     width: 100%;
@@ -593,7 +611,7 @@ a {
     gap: 4rem;
   }
 
-  .top-nav-title {
+  .top-nav-logo {
     display: none;
   }
 
@@ -633,4 +651,7 @@ a {
     height: max-content;
     padding: 1rem;
   }
+
+  
+  
 }

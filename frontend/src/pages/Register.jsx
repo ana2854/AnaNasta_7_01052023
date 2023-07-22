@@ -51,7 +51,7 @@ export function Register() {
       <main className="main-form">
         <h1 className="title-form">Créer mon compte </h1>
         <form onSubmit={onSubmit} className="form">
-          <img src={logo} className="logo-groupomania"></img>
+          <img src={logo} className="logo-groupomania" alt="logo de l'entreprise groupomania"></img>
 
           {/*condition : si erreur alors activé classe "erreur" */}
 

@@ -14,7 +14,7 @@ export function PostCard({ postId, content, imageUrl }) {
         <div className="postCard-body">
           <div className="postCard-header-img">
             {imageUrl ? (
-              <img className="postCard-img" src={imageUrl} alt="post image" />
+              <img className="postCard-img" src={imageUrl} alt="image du post" />
             ) : null}
           </div>
 
@@ -23,8 +23,12 @@ export function PostCard({ postId, content, imageUrl }) {
           ) : null}
         </div>
 
-        <div className="postCard-footer" title="Voir plus">
-          <Link className="btn-view" to={`/posts/${postId}`}>
+        <div className="postCard-footer">
+          <Link
+            className="btn-view"
+            to={`/posts/${postId}`}
+            aria-label={`Voir plus sur le post ${postId}`}
+          >
             Voir plus
           </Link>
         </div>

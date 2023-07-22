@@ -13,8 +13,8 @@ export function Profile() {
     <>
       <div className="wrapper-profile">
         <h1>Mon profil </h1>
-        <h2 className="profil-username">
-          <FaUser /> {user.email}
+        <h2 className="profil-username" aria-label={`profil de ${user.email}`}>
+          <FaUser aria-hidden="true" /> {user.email}
         </h2>
 
         <div className="grille-posts">
@@ -27,19 +27,7 @@ export function Profile() {
   )
 }
 
-/*
-async function loader({ request: { signal }, params: { userId } }) {
-  //Posts
-  const userPosts = getUserPosts(userId, { signal })
-  //user
-  const user = getOneUser(userId, { signal })
 
-  console.log('Loaded user:', user); // <- Check that user data is correct
-  console.log('Loaded posts:', userPosts); // <- Check that posts data is correct
-
-  return { userPosts: await userPosts, user: await user }
-}
-*/
 async function loader({ request: { signal }, params: { userId } }) {
   const [userPosts, user] = await Promise.all([
     getUserPosts(userId, { signal }),

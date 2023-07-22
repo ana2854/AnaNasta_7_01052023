@@ -98,8 +98,8 @@ export function Post() {
       <div className="wrapper-one-post">
         <div className="header-one-post">
           <span className="post-username">
-            <Link to={`/profile/${post.userId}`} title="profil utilisateur ">
-              <FaCircleUser /> {user.email}
+            <Link to={`/profile/${post.userId}`} aria-label="profil utilisateur ">
+              <FaCircleUser aria-hidden="true"/> {user.email}
             </Link>
           </span>
 
@@ -126,18 +126,18 @@ export function Post() {
                 >
                   <li>
                     {" "}
-                    <Link className="btn-modify" to="edit">
-                      <FaPenToSquare /> Modifier
+                    <Link className="btn-modify" to="edit" aria-label="modifier le post">
+                      <FaPenToSquare aria-hidden="true"/> Modifier
                     </Link>
                   </li>
 
                   <li>
                     {" "}
                     <button
-                      className="btn-delete"
+                      className="btn-delete" aria-label="supprimer le post"
                       onClick={() => handleDelete()}
                     >
-                      <FaTrashCan /> Supprimer
+                      <FaTrashCan aria-hidden="true"/> Supprimer
                     </button>
                   </li>
                 </ul>
@@ -147,9 +147,8 @@ export function Post() {
         </div>
 
         <div className="container-post-img">
-          {console.log("post file, image", post.imageUrl)}
           {post.imageUrl ? (
-            <img className="post-img" src={post.imageUrl} />
+            <img className="post-img" src={post.imageUrl} alt="image du post"/>
           ) : null}
         </div>
 
@@ -162,14 +161,14 @@ export function Post() {
 
           <button
             className="btn-like"
-            title={liked ? "j'aime" : "Je n'aime plus"}
-            onClick={() => handleLike()}
+            title={liked ? "j'aime" : "Je n'aime plus"} aria-label={liked ? "J'aime ce post" : "Je n'aime plus ce post"}
+            onClick={() => handleLike()} 
           >
-            <FaThumbsUp className={`like-icon ${liked ? "off" : "on"}`} />
+            <FaThumbsUp className={`like-icon ${liked ? "off" : "on"}`} aria-hidden="true"/>
           </button>
         </div>
 
-        <span className="count-likes" style={{ color: "#888" }}>
+        <span className="count-likes" style={{ color: "#656464" }} aria-label={`${count} j'aime`}>
           {count} j&apos;aime
         </span>
       </div>

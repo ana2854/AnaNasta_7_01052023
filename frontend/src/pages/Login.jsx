@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom"
 
 export function Login() {
   const navigate = useNavigate()
-  //variables email&password qui vont changer d'é<tabgfb></tabgfb>t
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
@@ -66,7 +65,7 @@ export function Login() {
       <main className="main-form">
         <h1 className="title-form">S&apos;identifier </h1>
         <form onSubmit={onSubmit} className="form">
-          <img src={logo} className="logo-groupomania"></img>
+          <img src={logo} className="logo-groupomania" alt="logo de l'entreprise groupomania"></img>
 
           {/*condition : si erreur alors activé classe "erreur" */}
 
