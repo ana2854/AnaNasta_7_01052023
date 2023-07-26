@@ -32,14 +32,11 @@ const Post = db.define(
     dateCreated: {
       type: DataTypes.DATE,
       allowNull: false,
-
     },
     dateUpdated: {
       type: DataTypes.DATE,
       allowNull: false,
-
     },
-   
   },
   {
     freezeTableName: true,
@@ -51,8 +48,7 @@ const Post = db.define(
 )
 
 // `sequelize.define` also returns the model
-console.log(Post === db.models.post);// true
-
+console.log(Post === db.models.post) // true
 
 //exportation du modèle
 module.exports = Post

@@ -27,7 +27,6 @@ export function Profile() {
   )
 }
 
-
 async function loader({ request: { signal }, params: { userId } }) {
   const [userPosts, user] = await Promise.all([
     getUserPosts(userId, { signal }),

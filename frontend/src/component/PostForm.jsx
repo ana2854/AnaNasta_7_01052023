@@ -9,7 +9,11 @@ export function PostForm({ defaultValues = {} }) {
           <label htmlFor="imageUrl">Ajouter une image</label>
           <input type="file" name="imageUrl" id="imageUrl" />{" "}
           {defaultValues.imageUrl && (
-            <img src={defaultValues.imageUrl} className="edit-img" alt="image téléchargée"/>
+            <img
+              src={defaultValues.imageUrl}
+              className="edit-img"
+              alt="image téléchargée"
+            />
           )}
         </div>
       </div>
@@ -30,10 +34,10 @@ export function PostForm({ defaultValues = {} }) {
           to="/posts"
           aria-label="Annuler et revenir aux posts"
         >
-          <FaCircleXmark aria-hidden="true"/> Annuler
+          <FaCircleXmark aria-hidden="true" /> Annuler
         </Link>
         <button className="btn action" aria-label="Envoyer le post">
-          <FaPaperPlane aria-hidden="true"/> Envoyer
+          <FaPaperPlane aria-hidden="true" /> Envoyer
         </button>
       </div>
     </Form>

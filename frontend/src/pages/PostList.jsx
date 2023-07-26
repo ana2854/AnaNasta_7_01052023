@@ -6,9 +6,7 @@ import { PostCard } from "../component/PostCard"
 import { Link } from "react-router-dom"
 import { FaPen } from "react-icons/fa6"
 
-
 function PostList() {
-  
   const { posts } = useLoaderData()
 
   return (
@@ -24,7 +22,11 @@ function PostList() {
 
         <div className="grille-posts">
           {posts.map((post) => (
-            <PostCard key={post.postId} aria-label={`Post de ${post.username}`}   {...post} />
+            <PostCard
+              key={post.postId}
+              aria-label={`Post de ${post.username}`}
+              {...post}
+            />
           ))}
         </div>
       </div>

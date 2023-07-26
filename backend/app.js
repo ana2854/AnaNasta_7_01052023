@@ -6,7 +6,7 @@ const helmet = require("helmet")
 const path = require("path")
 const app = express()
 
-const rateLimit = require('express-rate-limit')
+//const rateLimit = require('express-rate-limit')
 
 //dotenv
 require("dotenv").config()
@@ -27,15 +27,18 @@ const postRoutes = require("./routes/post")
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-// Setup the rate limiting
+/*
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per window
+  windowMs: 15 * 60 * 1000, 
+  max: 100, 
 })
 
-// Apply the rate limiting middleware to all requests
+
 app.use(limiter)
 
+
+
+*/
 //TEST DB SEQUELIZE
 async function connectionToSequelizeDb() {
   try {

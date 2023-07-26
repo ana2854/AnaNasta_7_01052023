@@ -24,31 +24,35 @@ export function NavLayout() {
       <div className="wrapper-content">
         <header className="header-nav">
           <nav className="top-nav">
-
-         
             <Link className="top-nav-logo" to="/posts">
               {" "}
-              <img src={logo} className="nav-logo-layout" alt="logo de l'entreprise Groupomania" />
+              <img
+                src={logo}
+                className="nav-logo-layout"
+                alt="logo de l'entreprise Groupomania"
+              />
             </Link>
-            
 
             <ul className="nav-list">
               <li>
                 <Link to={`/posts`} aria-label="Accéder aux posts">
-                  <FaHouse className="nav-icon" aria-hidden="true"/>{" "}
+                  <FaHouse className="nav-icon" aria-hidden="true" />{" "}
                   <span className="nav-text">Posts</span>
                 </Link>
               </li>
               <li>
-                <Link to={`/profile/${userId}`} aria-label="Accéder à mon profil">
+                <Link
+                  to={`/profile/${userId}`}
+                  aria-label="Accéder à mon profil"
+                >
                   {" "}
-                  <FaCircleUser className="nav-icon" aria-hidden="true"/>
+                  <FaCircleUser className="nav-icon" aria-hidden="true" />
                   <span className="nav-text">Profil</span>
                 </Link>
               </li>
               <li>
                 <Link to={`/settings`} aria-label="Accéder aux paramètres">
-                  <FaGear className="nav-icon" aria-hidden="true"/>
+                  <FaGear className="nav-icon" aria-hidden="true" />
                   <span className="nav-text">Paramètres</span>
                 </Link>
               </li>

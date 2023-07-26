@@ -51,20 +51,16 @@ const User = db.define(
       type: DataTypes.ENUM("admin", "basic"),
       allowNull: false,
       defaultValue: "basic",
-  
-    }
+    },
   },
-   {
+  {
     freezeTableName: true,
     timestamps: false,
   }
-  );
-
-
+)
 
 // `sequelize.define` also returns the model
-console.log(User === db.models.user);
-
+console.log(User === db.models.user)
 
 //exportation du modèle
 module.exports = User

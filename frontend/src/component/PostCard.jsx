@@ -14,7 +14,11 @@ export function PostCard({ postId, content, imageUrl }) {
         <div className="postCard-body">
           <div className="postCard-header-img">
             {imageUrl ? (
-              <img className="postCard-img" src={imageUrl} alt="image du post" />
+              <img
+                className="postCard-img"
+                src={imageUrl}
+                alt="image du post"
+              />
             ) : null}
           </div>
 

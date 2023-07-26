@@ -15,10 +15,9 @@ module.exports = new Sequelize(
     dialect: "mysql",
     timezone: "+02:00",
     dialectOptions: {
-     
-      dateStrings: true,//retourne la date en format string et pas objet
-      typeCast: function (field, next) { 
-        if (field.type === 'DATETIME') {
+      dateStrings: true, //retourne la date en format string et pas objet
+      typeCast: function (field, next) {
+        if (field.type === "DATETIME") {
           return field.string()
         }
         return next()

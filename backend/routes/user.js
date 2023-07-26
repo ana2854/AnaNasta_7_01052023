@@ -8,7 +8,7 @@ const router = express.Router()
 const userCtrl = require("../controllers/user")
 
 //middleware authentification
-const auth = require('../middleware/auth')
+const auth = require("../middleware/auth")
 
 // S'inscrire
 router.post("/signup", (req, res) => {
@@ -24,14 +24,11 @@ router.post("/login", (req, res) => {
   userCtrl.login(req, res)
 })
 
-
 //accéder à 1 utilisateur
 router.get("/:id", auth, (req, res) => {
-  console.log('accès à un user , req.userData:', req.userData);
+  console.log("accès à un user , req.userData:", req.userData)
   console.log("route accès à un utilisateur spécifique")
   userCtrl.getOneUser(req, res)
 })
-
-
 
 module.exports = router

@@ -65,7 +65,11 @@ export function Login() {
       <main className="main-form">
         <h1 className="title-form">S&apos;identifier </h1>
         <form onSubmit={onSubmit} className="form">
-          <img src={logo} className="logo-groupomania" alt="logo de l'entreprise groupomania"></img>
+          <img
+            src={logo}
+            className="logo-groupomania"
+            alt="logo de l'entreprise groupomania"
+          ></img>
 
           {/*condition : si erreur alors activé classe "erreur" */}
 
@@ -128,8 +132,10 @@ export function Login() {
             S&apos;identifier
           </button>
 
-          <span >
-            <Link to="/register" className="link-access">CREER MON COMPTE </Link>
+          <span>
+            <Link to="/register" className="link-access">
+              CREER MON COMPTE{" "}
+            </Link>
           </span>
         </form>
       </main>

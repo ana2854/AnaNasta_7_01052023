@@ -292,4 +292,3 @@ exports.userHasLiked = async (req, res, next) => {
     res.json({ userHasLiked: true })
   }
 }
-

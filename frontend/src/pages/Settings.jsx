@@ -6,10 +6,9 @@ export function Settings() {
   const navigate = useNavigate()
 
   function handleLogout() {
-
     localStorage.removeItem("userAuth")
 
-    baseApi.defaults.headers.common["Authorization"] = null
+    delete baseApi.defaults.headers.common["Authorization"]
     navigate("/login")
   }
 
@@ -17,11 +16,11 @@ export function Settings() {
     <main>
       <div className="wrapper-settings">
         <h1>Paramètres</h1>
-        
+
         <div className="content-settings">
           <button className="btn-logout" onClick={handleLogout}>
             {" "}
-            <FaArrowRightFromBracket /> <span>Me déconnecter</span> 
+            <FaArrowRightFromBracket /> <span>Me déconnecter</span>
           </button>
         </div>
       </div>

@@ -16,7 +16,7 @@ body {
 }
 
 .wrapper-postList {
-  margin: 2% 1%;
+  margin: 2% 0%;
 }
 
 .wrapper-settings {
@@ -39,6 +39,10 @@ body {
   margin: 0 20%;
   background-color: white;
   border-radius: 10px;
+}
+
+h1 {
+  margin-left: 2%;
 }
 
 .main-form {
@@ -130,7 +134,7 @@ input[type="password"] {
 span .link-access {
   display: flex;
   justify-content: center;
-  align-items:center;
+  align-items: center;
 }
 
 .link-access {
@@ -292,11 +296,8 @@ a {
   font-size: large;
 }
 
-
-
 img.nav-logo-layout {
   filter: invert();
-
 }
 
 .grille-posts {
@@ -458,8 +459,6 @@ img.nav-logo-layout {
   margin-bottom: 10px;
 }
 
-
-
 .edit-img {
   width: 40%;
   height: auto;
@@ -491,7 +490,7 @@ img.nav-logo-layout {
 }
 
 .top-nav-logo {
- font-size: larger;
+  font-size: larger;
   color: whitesmoke;
   width: 15%;
 }
@@ -576,19 +575,18 @@ img.nav-logo-layout {
   justify-content: center;
 }
 
+/*vue portable*/
 @media screen and (max-width: 767px) {
-  .body {
-    font-size: 0.6rem;
+  body {
+    font-size: 0.9rem;
   }
 
- .post-content {
-  font-size: medium;
- }
-
- .btn-delete,
-.btn-modify {
-  font-size: medium;
-}
+  .btn-delete,
+  .btn-modify,
+  .btn-view,
+  .btn .btn.action {
+    font-size: 0.9rem;
+  }
 
   .wrapper-form-newpost {
     width: 100%;
@@ -609,6 +607,7 @@ img.nav-logo-layout {
     display: flex;
     justify-content: center;
     gap: 4rem;
+    padding: 0.2rem;
   }
 
   .top-nav-logo {
@@ -616,15 +615,21 @@ img.nav-logo-layout {
   }
 
   .top-nav .nav-list .nav-icon {
-    font-size: larger;
+    font-size: medium;
+    font-weight: bold;
   }
 
   .top-nav .nav-text {
-    font-size: small;
+    font-size: 0.9rem;
   }
 
   .postCard {
-    margin: 4% 10% 8% 10%;
+    margin: 4% 7% 11% 7%;
+  }
+
+  .post-content,
+  .post-username {
+    font-size: 1rem;
   }
 
   .wrapper-one-post {
@@ -643,15 +648,32 @@ img.nav-logo-layout {
 
   .btn-create {
     width: 30%;
+    font-size: 0.9rem;
   }
 }
 
+/*vue tablette*/
 @media screen and (min-width: 768px) and (max-width: 1024px) {
-  .btn-create {
+  .btn-create,
+  .btn-logout {
     height: max-content;
-    padding: 1rem;
+    padding: 1.8rem;
+    font-size: large;
   }
 
-  
-  
+  .nav-logo-layout {
+    height: 1.7rem;
+  }
+
+  .postCard {
+    margin: 4% 6% 12% 6%;
+  }
+
+  .wrapper-one-post {
+    margin: 6% 6% 0 6%;
+  }
+
+  .wrapper-form-newpost {
+    width: 100%;
+  }
 }
