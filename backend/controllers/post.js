@@ -162,6 +162,7 @@ exports.getLatestPosts = (req, res, next) => {
     })
 }
 
+/*
 exports.deletePost = async (req, res, next) => {
   try {
     console.log("fonction delete déclenchée")
@@ -223,6 +224,54 @@ exports.deletePost = async (req, res, next) => {
     res.status(500).json({ error })
   }
 }
+*/
+exports.deletePost = async (req, res, next) => {
+  try {
+    console.log("fonction delete déclenchée");
+    const post = await Post.findOne({ where: { postId: req.params.id } });
+    console.log("Post found: ", post);
+    console.log("post id ", req.params.id);
+
+    if (!post) {
+      console.log("Post non trouvé");
+      return res.status(404).json({ error: "Post non trouvé" });
+    }
+
+    if (req.userData.userId === post.userId || req.userData.role === 'admin') {
+      const deletePostFromDB = async () => {
+          try {
+              await Post.destroy({ where: { postId: req.params.id } });
+              console.log('Post supprimé');
+              res.status(200).json({ message: 'Post supprimé !' });
+          } catch (error) {
+              console.error('Erreur suppression post: ', error);
+              res.status(400).json({ error });
+          }
+      }
+
+      if (post.imageUrl) {
+          const filename = post.imageUrl.split('/images/')[1];
+          fs.unlink(`images/${filename}`, (err) => {
+              if (err) {
+                  console.error('Erreur suppression image: ', err);
+              }
+              deletePostFromDB();
+          });
+      } else {
+          deletePostFromDB();
+      }
+    } else {
+      console.log('Suppression non-autorisé');
+      res.status(403).json({ error: 'Non-autorisé' });
+    }
+  } catch (error) {
+    console.error("Error in delete process: ", error);
+    res.status(500).json({ error });
+  }
+};
+
+  
+
 
 //accès aux post d'un utilisateur
 exports.getUserPosts = (req, res, next) => {
